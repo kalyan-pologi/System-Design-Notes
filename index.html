@@ -507,6 +507,79 @@
       color: #fdba74;
     }
 
+
+    /* ── NAV GROUPS ── */
+    .nav-group {
+      margin: 1px 6px;
+    }
+
+    .nav-group-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      font-size: 12.5px;
+      color: #94a3b8;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+      user-select: none;
+    }
+
+    .nav-group-label:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #e2e8f0;
+    }
+
+    .nav-group-label .icon {
+      font-size: 13px;
+      opacity: 0.8;
+    }
+
+    .nav-arrow {
+      margin-left: auto;
+      font-size: 10px;
+      transition: transform 0.2s;
+      color: #475569;
+    }
+
+    .nav-arrow.open {
+      transform: rotate(90deg);
+    }
+
+    .nav-group-items {
+      display: none;
+      padding-left: 4px;
+    }
+
+    .nav-group-items.open {
+      display: block;
+    }
+
+    .nav-sub {
+      display: flex;
+      align-items: center;
+      padding: 5px 10px 5px 28px;
+      font-size: 11.5px;
+      color: #64748b;
+      cursor: pointer;
+      border-radius: 5px;
+      margin: 1px 0;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+      line-height: 1.4;
+    }
+
+    .nav-sub:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: #94a3b8;
+    }
+
+    .nav-sub.active {
+      background: rgba(96, 165, 250, 0.1);
+      color: #60a5fa;
+    }
+
     /* ── MOBILE ── */
     .hamburger {
       display: none;
@@ -581,39 +654,293 @@
     <a class="nav-item" onclick="show('delivery')"><span class="icon">🎯</span> Delivery Framework</a>
 
     <div class="nav-section">Core Concepts</div>
-    <a class="nav-item" onclick="show('caching')"><span class="icon">⚡</span> Caching</a>
-    <a class="nav-item" onclick="show('loadbalancing')"><span class="icon">⚖️</span> Load Balancing</a>
-    <a class="nav-item" onclick="show('databases')"><span class="icon">🗄️</span> Database Scaling</a>
-    <a class="nav-item" onclick="show('cap')"><span class="icon">🔺</span> CAP Theorem</a>
-    <a class="nav-item" onclick="show('hashing')"><span class="icon">🔗</span> Consistent Hashing</a>
-    <a class="nav-item" onclick="show('ratelimit')"><span class="icon">🚦</span> Rate Limiting</a>
-    <a class="nav-item" onclick="show('queues')"><span class="icon">📨</span> Message Queues</a>
-    <a class="nav-item" onclick="show('api')"><span class="icon">🔌</span> API Design</a>
-    <a class="nav-item" onclick="show('replication')"><span class="icon">🔁</span> Replication</a>
-    <a class="nav-item" onclick="show('sharding')"><span class="icon">🧩</span> Sharding</a>
+
+    <div class="nav-group">
+      <div class="nav-group-label" onclick="toggleGroup('g-networking')"><span class="icon">🌐</span> Networking
+        Essentials <span class="nav-arrow" id="arr-g-networking">▸</span></div>
+      <div class="nav-group-items" id="g-networking">
+        <a class="nav-sub" onclick="show('tcp')">TCP / UDP / HTTP / WebSocket</a>
+        <a class="nav-sub" onclick="show('dns')">DNS</a>
+        <a class="nav-sub" onclick="show('proxy')">Proxy Servers</a>
+        <a class="nav-sub" onclick="show('clientserver')">Client-Server & P2P</a>
+        <a class="nav-sub" onclick="show('loadbalancing')">Load Balancing</a>
+        <a class="nav-sub" onclick="show('cdn')">CDN</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label" onclick="toggleGroup('g-api')"><span class="icon">🔌</span> API Design <span
+          class="nav-arrow" id="arr-g-api">▸</span></div>
+      <div class="nav-group-items" id="g-api">
+        <a class="nav-sub" onclick="show('restgraphql')">REST vs GraphQL vs gRPC</a>
+        <a class="nav-sub" onclick="show('apigateway')">API Gateway</a>
+        <a class="nav-sub" onclick="show('realtime')">WebSocket / SSE / Polling</a>
+        <a class="nav-sub" onclick="show('ratelimit')">Rate Limiting & Throttling</a>
+        <a class="nav-sub" onclick="show('auth')">Authentication (OAuth2, JWT)</a>
+        <a class="nav-sub" onclick="show('apidesign')">Versioning & Idempotency</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label" onclick="toggleGroup('g-data')"><span class="icon">🗄️</span> Data Modeling <span
+          class="nav-arrow" id="arr-g-data">▸</span></div>
+      <div class="nav-group-items" id="g-data">
+        <a class="nav-sub" onclick="show('sqlnosql')">SQL vs NoSQL</a>
+        <a class="nav-sub" onclick="show('schema')">Schema Design</a>
+        <a class="nav-sub" onclick="show('normalization')">Normalization vs Denormalization</a>
+        <a class="nav-sub" onclick="show('acid')">Transactions & ACID</a>
+        <a class="nav-sub" onclick="show('isolation')">Isolation Levels</a>
+        <a class="nav-sub" onclick="show('distrtx')">Distributed Transactions</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label" onclick="toggleGroup('g-caching')"><span class="icon">⚡</span> Caching <span
+          class="nav-arrow" id="arr-g-caching">▸</span></div>
+      <div class="nav-group-items" id="g-caching">
+        <a class="nav-sub" onclick="show('caching')">Caching Fundamentals</a>
+        <a class="nav-sub" onclick="show('cachestrategies')">Cache Strategies</a>
+        <a class="nav-sub" onclick="show('cacheeviction')">Eviction & Invalidation</a>
+        <a class="nav-sub" onclick="show('distrcache')">Distributed Caching</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label" onclick="toggleGroup('g-sharding')"><span class="icon">🧩</span> Sharding <span
+          class="nav-arrow" id="arr-g-sharding">▸</span></div>
+      <div class="nav-group-items" id="g-sharding">
+        <a class="nav-sub" onclick="show('sharding')">Sharding Fundamentals</a>
+        <a class="nav-sub" onclick="show('shardstrats')">Sharding Strategies</a>
+        <a class="nav-sub" onclick="show('hotspots')">Hot Spots & Rebalancing</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label" onclick="toggleGroup('g-hashing')"><span class="icon">🔗</span> Consistent Hashing
+        <span class="nav-arrow" id="arr-g-hashing">▸</span></div>
+      <div class="nav-group-items" id="g-hashing">
+        <a class="nav-sub" onclick="show('hashing')">Consistent Hashing</a>
+        <a class="nav-sub" onclick="show('virtualnodes')">Virtual Nodes</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label" onclick="toggleGroup('g-cap')"><span class="icon">🔺</span> CAP Theorem <span
+          class="nav-arrow" id="arr-g-cap">▸</span></div>
+      <div class="nav-group-items" id="g-cap">
+        <a class="nav-sub" onclick="show('cap')">CAP Basics</a>
+        <a class="nav-sub" onclick="show('consistency')">Consistency Models</a>
+        <a class="nav-sub" onclick="show('pacelc')">PACELC Extension</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label" onclick="toggleGroup('g-indexing')"><span class="icon">📑</span> Database Indexing
+        <span class="nav-arrow" id="arr-g-indexing">▸</span></div>
+      <div class="nav-group-items" id="g-indexing">
+        <a class="nav-sub" onclick="show('indexing')">Indexing Fundamentals</a>
+        <a class="nav-sub" onclick="show('btree')">B-Tree vs LSM Tree</a>
+        <a class="nav-sub" onclick="show('indextypes')">Index Types & Trade-offs</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label" onclick="toggleGroup('g-replication')"><span class="icon">🔁</span> Replication <span
+          class="nav-arrow" id="arr-g-replication">▸</span></div>
+      <div class="nav-group-items" id="g-replication">
+        <a class="nav-sub" onclick="show('replication')">Replication Fundamentals</a>
+        <a class="nav-sub" onclick="show('repliclag')">Replication Lag & Failover</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label" onclick="toggleGroup('g-queues')"><span class="icon">📨</span> Message Queues & Async
+        <span class="nav-arrow" id="arr-g-queues">▸</span></div>
+      <div class="nav-group-items" id="g-queues">
+        <a class="nav-sub" onclick="show('queues')">Message Queue Fundamentals</a>
+        <a class="nav-sub" onclick="show('pubsub')">Pub/Sub & Event-Driven</a>
+        <a class="nav-sub" onclick="show('msgsemantics')">Delivery Semantics</a>
+        <a class="nav-sub" onclick="show('backpressure')">Back Pressure</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label" onclick="toggleGroup('g-distributed')"><span class="icon">🌍</span> Distributed
+        Systems <span class="nav-arrow" id="arr-g-distributed">▸</span></div>
+      <div class="nav-group-items" id="g-distributed">
+        <a class="nav-sub" onclick="show('leaderelection')">Leader Election</a>
+        <a class="nav-sub" onclick="show('gossip')">Gossip Protocol</a>
+        <a class="nav-sub" onclick="show('bloomfilter')">Bloom Filter</a>
+        <a class="nav-sub" onclick="show('merkle')">Merkle Tree</a>
+        <a class="nav-sub" onclick="show('distrlog')">Distributed Logs</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label" onclick="toggleGroup('g-scalability')"><span class="icon">📈</span> Scalability &
+        Reliability <span class="nav-arrow" id="arr-g-scalability">▸</span></div>
+      <div class="nav-group-items" id="g-scalability">
+        <a class="nav-sub" onclick="show('scaling')">Horizontal vs Vertical Scaling</a>
+        <a class="nav-sub" onclick="show('faulttolerance')">Fault Tolerance</a>
+        <a class="nav-sub" onclick="show('availability')">Availability & Reliability</a>
+        <a class="nav-sub" onclick="show('circuitbreaker')">Circuit Breaker</a>
+        <a class="nav-sub" onclick="show('monitoring')">Health Checks & Monitoring</a>
+        <a class="nav-sub" onclick="show('disaster')">Disaster Recovery</a>
+        <a class="nav-sub" onclick="show('autoscaling')">Elastic / Auto-scaling</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label" onclick="toggleGroup('g-storage')"><span class="icon">💾</span> Storage <span
+          class="nav-arrow" id="arr-g-storage">▸</span></div>
+      <div class="nav-group-items" id="g-storage">
+        <a class="nav-sub" onclick="show('storagetypes')">Block vs File vs Object</a>
+        <a class="nav-sub" onclick="show('dfs')">Distributed File Systems</a>
+        <a class="nav-sub" onclick="show('kvstore')">Key-Value Store</a>
+      </div>
+    </div>
 
     <div class="nav-section">Key Technologies</div>
-    <a class="nav-item" onclick="show('redis')"><span class="icon">🟥</span> Redis</a>
-    <a class="nav-item" onclick="show('kafka')"><span class="icon">📊</span> Kafka</a>
-    <a class="nav-item" onclick="show('nginx')"><span class="icon">🌐</span> Nginx</a>
-    <a class="nav-item" onclick="show('elastic')"><span class="icon">🔍</span> Elasticsearch</a>
-    <a class="nav-item" onclick="show('cdn')"><span class="icon">🌍</span> S3 / CDN</a>
 
-    <div class="nav-section">Common Patterns</div>
-    <a class="nav-item" onclick="show('cqrs')"><span class="icon">🔄</span> CQRS</a>
-    <a class="nav-item" onclick="show('saga')"><span class="icon">📜</span> Saga Pattern</a>
-    <a class="nav-item" onclick="show('circuit')"><span class="icon">⚡</span> Circuit Breaker</a>
-    <a class="nav-item" onclick="show('eventsourcing')"><span class="icon">📋</span> Event Sourcing</a>
+    <div class="nav-group">
+      <div class="nav-group-label" onclick="toggleGroup('g-tech')"><span class="icon">⚙️</span> Databases <span
+          class="nav-arrow" id="arr-g-tech">▸</span></div>
+      <div class="nav-group-items" id="g-tech">
+        <a class="nav-sub" onclick="show('redis')">🟥 Redis</a>
+        <a class="nav-sub" onclick="show('cassandra')">🪨 Cassandra</a>
+        <a class="nav-sub" onclick="show('dynamodb')">⚡ DynamoDB</a>
+        <a class="nav-sub" onclick="show('postgres')">🐘 PostgreSQL</a>
+      </div>
+    </div>
 
-    <div class="nav-section">System Designs</div>
-    <a class="nav-item" onclick="show('urlshortener')"><span class="icon">🔗</span> URL Shortener</a>
-    <a class="nav-item" onclick="show('twitter')"><span class="icon">🐦</span> Twitter Feed</a>
-    <a class="nav-item" onclick="show('whatsapp')"><span class="icon">💬</span> WhatsApp</a>
-    <a class="nav-item" onclick="show('youtube')"><span class="icon">▶️</span> YouTube</a>
-    <a class="nav-item" onclick="show('uber')"><span class="icon">🚗</span> Uber</a>
+    <div class="nav-group">
+      <div class="nav-group-label" onclick="toggleGroup('g-stream')"><span class="icon">📊</span> Streaming & Search
+        <span class="nav-arrow" id="arr-g-stream">▸</span></div>
+      <div class="nav-group-items" id="g-stream">
+        <a class="nav-sub" onclick="show('kafka')">📊 Kafka</a>
+        <a class="nav-sub" onclick="show('elastic')">🔍 Elasticsearch</a>
+        <a class="nav-sub" onclick="show('flink')">⚡ Flink</a>
+      </div>
+    </div>
 
-    <div class="nav-section">Practice</div>
-    <a class="nav-item" onclick="show('practice')"><span class="icon">📝</span> Practice Questions</a>
+    <div class="nav-group">
+      <div class="nav-group-label" onclick="toggleGroup('g-infra')"><span class="icon">🏗️</span> Infrastructure <span
+          class="nav-arrow" id="arr-g-infra">▸</span></div>
+      <div class="nav-group-items" id="g-infra">
+        <a class="nav-sub" onclick="show('nginx')">🌐 Nginx</a>
+        <a class="nav-sub" onclick="show('apigw')">🔌 API Gateway</a>
+        <a class="nav-sub" onclick="show('zookeeper')">🦁 ZooKeeper</a>
+        <a class="nav-sub" onclick="show('kubernetes')">☸️ Kubernetes</a>
+        <a class="nav-sub" onclick="show('s3cdn')">🌍 S3 / CDN</a>
+        <a class="nav-sub" onclick="show('rabbitmq')">🐰 RabbitMQ</a>
+      </div>
+    </div>
+
+    <div class="nav-section">Patterns</div>
+
+    <div class="nav-group">
+      <div class="nav-group-label" onclick="toggleGroup('g-patterns')"><span class="icon">🔄</span> All Patterns <span
+          class="nav-arrow" id="arr-g-patterns">▸</span></div>
+      <div class="nav-group-items" id="g-patterns">
+        <a class="nav-sub" onclick="show('p-realtime')">Real-time Updates</a>
+        <a class="nav-sub" onclick="show('p-contention')">Dealing with Contention</a>
+        <a class="nav-sub" onclick="show('p-multistep')">Multi-step Processes</a>
+        <a class="nav-sub" onclick="show('p-scalereads')">Scaling Reads</a>
+        <a class="nav-sub" onclick="show('p-scalewrites')">Scaling Writes</a>
+        <a class="nav-sub" onclick="show('p-blobs')">Handling Large Blobs</a>
+        <a class="nav-sub" onclick="show('p-longtasks')">Long Running Tasks</a>
+        <a class="nav-sub" onclick="show('p-search')">Search at Scale</a>
+        <a class="nav-sub" onclick="show('p-ratelimit')">Rate Limiting Pattern</a>
+        <a class="nav-sub" onclick="show('p-dedup')">Deduplication</a>
+        <a class="nav-sub" onclick="show('p-topk')">Top-K / Heavy Hitters</a>
+        <a class="nav-sub" onclick="show('p-geo')">Geo-spatial Queries</a>
+        <a class="nav-sub" onclick="show('p-fanout')">Fan-out</a>
+        <a class="nav-sub" onclick="show('p-notification')">Notification System</a>
+      </div>
+    </div>
+
+    <div class="nav-section">Question Breakdowns</div>
+
+    <div class="nav-group">
+      <div class="nav-group-label" onclick="toggleGroup('g-q1')"><span class="icon">🔗</span> Storage & Retrieval <span
+          class="nav-arrow" id="arr-g-q1">▸</span></div>
+      <div class="nav-group-items" id="g-q1">
+        <a class="nav-sub" onclick="show('q-bitly')">Bitly (URL Shortener)</a>
+        <a class="nav-sub" onclick="show('q-dropbox')">Dropbox (File Storage)</a>
+        <a class="nav-sub" onclick="show('q-distrcache')">Distributed Cache</a>
+        <a class="nav-sub" onclick="show('q-s3')">S3 / Object Storage</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label" onclick="toggleGroup('g-q2')"><span class="icon">💬</span> Social & Messaging <span
+          class="nav-arrow" id="arr-g-q2">▸</span></div>
+      <div class="nav-group-items" id="g-q2">
+        <a class="nav-sub" onclick="show('q-whatsapp')">WhatsApp</a>
+        <a class="nav-sub" onclick="show('q-fb-feed')">Facebook News Feed</a>
+        <a class="nav-sub" onclick="show('q-fb-live')">Facebook Live Comments</a>
+        <a class="nav-sub" onclick="show('q-fb-search')">Facebook Post Search</a>
+        <a class="nav-sub" onclick="show('q-instagram')">Instagram</a>
+        <a class="nav-sub" onclick="show('q-tinder')">Tinder</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label" onclick="toggleGroup('g-q3')"><span class="icon">▶️</span> Video & Media <span
+          class="nav-arrow" id="arr-g-q3">▸</span></div>
+      <div class="nav-group-items" id="g-q3">
+        <a class="nav-sub" onclick="show('q-youtube')">YouTube</a>
+        <a class="nav-sub" onclick="show('q-youtube-topk')">YouTube Top-K</a>
+        <a class="nav-sub" onclick="show('q-netflix')">Netflix</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label" onclick="toggleGroup('g-q4')"><span class="icon">🚗</span> Maps & Logistics <span
+          class="nav-arrow" id="arr-g-q4">▸</span></div>
+      <div class="nav-group-items" id="g-q4">
+        <a class="nav-sub" onclick="show('q-uber')">Uber</a>
+        <a class="nav-sub" onclick="show('q-delivery')">Local Delivery Service</a>
+        <a class="nav-sub" onclick="show('q-yelp')">Yelp (Proximity Search)</a>
+        <a class="nav-sub" onclick="show('q-strava')">Strava</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label" onclick="toggleGroup('g-q5')"><span class="icon">💰</span> Finance & Commerce <span
+          class="nav-arrow" id="arr-g-q5">▸</span></div>
+      <div class="nav-group-items" id="g-q5">
+        <a class="nav-sub" onclick="show('q-robinhood')">Robinhood</a>
+        <a class="nav-sub" onclick="show('q-payment')">Payment System</a>
+        <a class="nav-sub" onclick="show('q-auction')">Online Auction</a>
+        <a class="nav-sub" onclick="show('q-ticketmaster')">Ticketmaster</a>
+        <a class="nav-sub" onclick="show('q-price')">Price Tracking Service</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label" onclick="toggleGroup('g-q6')"><span class="icon">🛠️</span> Dev Tools & Infra <span
+          class="nav-arrow" id="arr-g-q6">▸</span></div>
+      <div class="nav-group-items" id="g-q6">
+        <a class="nav-sub" onclick="show('q-leetcode')">LeetCode (Online Judge)</a>
+        <a class="nav-sub" onclick="show('q-crawler')">Web Crawler</a>
+        <a class="nav-sub" onclick="show('q-ratelimiter')">Rate Limiter</a>
+        <a class="nav-sub" onclick="show('q-jobscheduler')">Job Scheduler</a>
+        <a class="nav-sub" onclick="show('q-metrics')">Metrics Monitoring</a>
+        <a class="nav-sub" onclick="show('q-adclick')">Ad Click Aggregator</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label" onclick="toggleGroup('g-q7')"><span class="icon">🤖</span> AI & Collaboration <span
+          class="nav-arrow" id="arr-g-q7">▸</span></div>
+      <div class="nav-group-items" id="g-q7">
+        <a class="nav-sub" onclick="show('q-gdocs')">Google Docs</a>
+        <a class="nav-sub" onclick="show('q-chatgpt')">ChatGPT</a>
+        <a class="nav-sub" onclick="show('q-news')">News Aggregator</a>
+      </div>
+    </div>
+
   </nav>
 
   <!-- MAIN -->
@@ -669,11 +996,10 @@
 
       <div class="cs-section-label">🔢 Core Numbers — Memorize First</div>
       <div style="margin-bottom:16px;">
-        <img 
-          src="https://camo.githubusercontent.com/7b158d2ef5659efc05042f0d323530bfc3a82f1dc2dbf5401c2cd55f315036fb/687474703a2f2f692e696d6775722e636f6d2f6b307431652e706e67" 
+        <img
+          src="https://camo.githubusercontent.com/7b158d2ef5659efc05042f0d323530bfc3a82f1dc2dbf5401c2cd55f315036fb/687474703a2f2f692e696d6775722e636f6d2f6b307431652e706e67"
           alt="Latency Numbers Every Programmer Should Know"
-          style="width:100%;border-radius:10px;border:1px solid rgba(255,255,255,0.07);"
-        >
+          style="width:100%;border-radius:10px;border:1px solid rgba(255,255,255,0.07);">
       </div>
       <div class="grid3">
         <div class="card c4">
@@ -798,45 +1124,7 @@
           <div class="note"><b>Servers:</b> total QPS ÷ QPS per server</div>
         </div>
       </div>
-      <div class="cs-section-label">📊 Business + Storage Benchmarks</div>
-      <div class="grid3" style="margin-bottom:16px;">
-        <div class="card c5">
-          <h3>Sequential Read Latency</h3>
-          <div class="row"><span class="k">Read 1MB from memory</span><span class="v">0.25 ms</span></div>
-          <div class="row"><span class="k">Read 1MB from SSD</span><span class="v">1 ms</span></div>
-          <div class="row"><span class="k">Read 1MB from disk</span><span class="v">20 ms</span></div>
-          <div class="sep"></div>
-          <div class="row"><span class="k">SSD vs memory</span><span class="v">4× slower</span></div>
-          <div class="row"><span class="k">Disk vs SSD</span><span class="v">20× slower</span></div>
-          <div class="row"><span class="k">Disk vs memory</span><span class="v">80× slower</span></div>
-          <div class="sep"></div>
-          <div class="note"><b>💡 Tip:</b> SSDs are so affordable now that many problems needing a cluster in the past
-            can run on one server with SSDs.</div>
-        </div>
 
-        <div class="card c11">
-          <h3>Storage Size Benchmarks</h3>
-          <div class="row"><span class="k">2-hour movie</span><span class="v">~1 GB</span></div>
-          <div class="row"><span class="k">Small book (plain text)</span><span class="v">~1 MB</span></div>
-          <div class="row"><span class="k">High-res photo</span><span class="v">~1 MB</span></div>
-          <div class="row"><span class="k">Medium-res image</span><span class="v">~100 KB</span></div>
-          <div class="row"><span class="k">Wikipedia (total)</span><span class="v">~100 GB</span></div>
-          <div class="sep"></div>
-          <div class="note"><b>💡 Tip:</b> Size a record by adding up all its fields. Round 323B → 500B or 1KB. Don't
-            carry exact numbers through the whole interview.</div>
-        </div>
-
-        <div class="card c13">
-          <h3>Business Scale Benchmarks</h3>
-          <div class="row"><span class="k">Major social network DAU</span><span class="v">O(1B)</span></div>
-          <div class="row"><span class="k">Netflix hours/day streamed</span><span class="v">O(100M)</span></div>
-          <div class="row"><span class="k">Google searches/sec</span><span class="v">O(100K)</span></div>
-          <div class="sep"></div>
-          <div class="note"><b>💡 Tip:</b> Don't get docked for being imprecise on business numbers — most engineers
-            won't be exact. Make a quick estimate and ask interviewer to correct if needed.</div>
-        </div>
-
-      </div>
       <div class="cs-section-label">⚙️ Patterns + Rules</div>
       <div class="grid3">
         <div class="card c8">
@@ -951,70 +1239,71 @@
         </div>
       </div>
       <div class="cs-section-label">🆚 Classic vs Modern Numbers (2025)</div>
-<div class="grid3" style="margin-bottom:16px;">
+      <div class="grid3" style="margin-bottom:16px;">
 
-  <div class="card c5">
-    <h3>Storage & Disk Evolution</h3>
-    <div class="sl">Disk Seek</div>
-    <div class="row"><span class="k">Classic (HDD)</span><span class="v">10 ms</span></div>
-    <div class="row"><span class="k">Modern (NVMe)</span><span class="v">~100 µs</span></div>
-    <div class="sep"></div>
-    <div class="sl">Read 1MB Sequential</div>
-    <div class="row"><span class="k">Classic (HDD)</span><span class="v">30 ms</span></div>
-    <div class="row"><span class="k">Modern (NVMe)</span><span class="v">~0.1 ms</span></div>
-    <div class="sep"></div>
-    <div class="sl">Read 1MB from SSD</div>
-    <div class="row"><span class="k">Classic (SATA SSD)</span><span class="v">1 ms</span></div>
-    <div class="row"><span class="k">Modern (NVMe SSD)</span><span class="v">~0.1 ms</span></div>
-    <div class="sep"></div>
-    <div class="note" style="color:#f87171;"><b>Why:</b> NVMe uses PCIe lanes directly — no SATA bottleneck. HDDs nearly gone from prod systems. 
-      NVMe changed the economics — what needed a cluster in 2010 can run on one beefy server today.</div>
-  </div>
+        <div class="card c5">
+          <h3>Storage & Disk Evolution</h3>
+          <div class="sl">Disk Seek</div>
+          <div class="row"><span class="k">Classic (HDD)</span><span class="v">10 ms</span></div>
+          <div class="row"><span class="k">Modern (NVMe)</span><span class="v">~100 µs</span></div>
+          <div class="sep"></div>
+          <div class="sl">Read 1MB Sequential</div>
+          <div class="row"><span class="k">Classic (HDD)</span><span class="v">30 ms</span></div>
+          <div class="row"><span class="k">Modern (NVMe)</span><span class="v">~0.1 ms</span></div>
+          <div class="sep"></div>
+          <div class="sl">Read 1MB from SSD</div>
+          <div class="row"><span class="k">Classic (SATA SSD)</span><span class="v">1 ms</span></div>
+          <div class="row"><span class="k">Modern (NVMe SSD)</span><span class="v">~0.1 ms</span></div>
+          <div class="sep"></div>
+          <div class="note" style="color:#f87171;"><b>Why:</b> NVMe uses PCIe lanes directly — no SATA bottleneck. HDDs
+            nearly gone from prod systems.
+            NVMe changed the economics — what needed a cluster in 2010 can run on one beefy server today.</div>
+        </div>
 
-  <div class="card c7">
-    <h3>Component Throughput Evolution</h3>
-    <div class="sl">Redis QPS</div>
-    <div class="row"><span class="k">Classic</span><span class="v">~100K QPS</span></div>
-    <div class="row"><span class="k">Modern (Redis 7+)</span><span class="v">500K–1M QPS</span></div>
-    <div class="sep"></div>
-    <div class="sl">MySQL / Postgres Writes</div>
-    <div class="row"><span class="k">Classic (HDD)</span><span class="v">2K–5K/s</span></div>
-    <div class="row"><span class="k">Modern (NVMe)</span><span class="v">10K–50K/s</span></div>
-    <div class="sep"></div>
-    <div class="sl">Datacenter Round Trip</div>
-    <div class="row"><span class="k">Classic</span><span class="v">500 µs</span></div>
-    <div class="row"><span class="k">Modern same AZ</span><span class="v">&lt;100 µs</span></div>
-    <div class="sep"></div>
-    <div class="sl">1 CPU Core</div>
-    <div class="row"><span class="k">Classic</span><span class="v">~1K req/s</span></div>
-    <div class="row"><span class="k">Modern (async)</span><span class="v">10K–100K req/s</span></div>
-    <div class="sep"></div>
-    <div class="note" style="color:#f87171;"><b>Why:</b> Async frameworks (Node, Go, FastAPI), better CPUs, NVMe — all pushed limits up dramatically.</div>
-  </div>
+        <div class="card c7">
+          <h3>Component Throughput Evolution</h3>
+          <div class="sl">Redis QPS</div>
+          <div class="row"><span class="k">Classic</span><span class="v">~100K QPS</span></div>
+          <div class="row"><span class="k">Modern (Redis 7+)</span><span class="v">500K–1M QPS</span></div>
+          <div class="sep"></div>
+          <div class="sl">MySQL / Postgres Writes</div>
+          <div class="row"><span class="k">Classic (HDD)</span><span class="v">2K–5K/s</span></div>
+          <div class="row"><span class="k">Modern (NVMe)</span><span class="v">10K–50K/s</span></div>
+          <div class="sep"></div>
+          <div class="sl">Datacenter Round Trip</div>
+          <div class="row"><span class="k">Classic</span><span class="v">500 µs</span></div>
+          <div class="row"><span class="k">Modern same AZ</span><span class="v">&lt;100 µs</span></div>
+          <div class="sep"></div>
+          <div class="sl">1 CPU Core</div>
+          <div class="row"><span class="k">Classic</span><span class="v">~1K req/s</span></div>
+          <div class="row"><span class="k">Modern (async)</span><span class="v">10K–100K req/s</span></div>
+          <div class="sep"></div>
+          <div class="note" style="color:#f87171;"><b>Why:</b> Async frameworks (Node, Go, FastAPI), better CPUs, NVMe —
+            all pushed limits up dramatically.</div>
+        </div>
 
-  <div class="card c13">
-    <h3>Media & Network Evolution</h3>
-    <div class="sl">Video Size per Hour (HD)</div>
-    <div class="row"><span class="k">Classic (H.264)</span><span class="v">~4 GB/hr</span></div>
-    <div class="row"><span class="k">Modern (H.265/AV1)</span><span class="v">1–2 GB/hr</span></div>
-    <div class="sep"></div>
-    <div class="sl">Network Bandwidth</div>
-    <div class="row"><span class="k">Classic datacenter</span><span class="v">1 Gbps</span></div>
-    <div class="row"><span class="k">Modern datacenter</span><span class="v">25–100 Gbps</span></div>
-    <div class="sep"></div>
-    <div class="sl">Image Size</div>
-    <div class="row"><span class="k">Classic JPEG</span><span class="v">~1 MB</span></div>
-    <div class="row"><span class="k">Modern WebP/AVIF</span><span class="v">~100–300 KB</span></div>
-    <div class="sep"></div>
-    <div class="sl">What stays the same</div>
-    <div class="b">L1/L2 cache latency — same order</div>
-    <div class="b">Memory reference — same order</div>
-    <div class="b">CA → Netherlands RTT — same ~150ms</div>
-  </div>
-
-</div>
+        <div class="card c13">
+          <h3>Media & Network Evolution</h3>
+          <div class="sl">Video Size per Hour (HD)</div>
+          <div class="row"><span class="k">Classic (H.264)</span><span class="v">~4 GB/hr</span></div>
+          <div class="row"><span class="k">Modern (H.265/AV1)</span><span class="v">1–2 GB/hr</span></div>
+          <div class="sep"></div>
+          <div class="sl">Network Bandwidth</div>
+          <div class="row"><span class="k">Classic datacenter</span><span class="v">1 Gbps</span></div>
+          <div class="row"><span class="k">Modern datacenter</span><span class="v">25–100 Gbps</span></div>
+          <div class="sep"></div>
+          <div class="sl">Image Size</div>
+          <div class="row"><span class="k">Classic JPEG</span><span class="v">~1 MB</span></div>
+          <div class="row"><span class="k">Modern WebP/AVIF</span><span class="v">~100–300 KB</span></div>
+          <div class="sep"></div>
+          <div class="sl">What stays the same</div>
+          <div class="b">L1/L2 cache latency — same order</div>
+          <div class="b">Memory reference — same order</div>
+          <div class="b">CA → Netherlands RTT — same ~150ms</div>
+        </div>
+      </div>
     </div>
-    
+
     <!-- ALL OTHER SECTIONS — PLACEHOLDERS -->
     <!-- PASTE THIS ENTIRE BLOCK to replace the delivery section in index.html -->
     <div class="section" id="delivery">
@@ -1483,151 +1772,195 @@
           <div class="row"><span class="k">Senior</span><span class="v">proactive, drives trade-offs</span></div>
           <div class="row"><span class="k">Staff</span><span class="v">leads, challenges requirements</span></div>
         </div>
+
       </div>
-    <!-- GOLDEN RULES -->
-    <div class="cs-section-label">⚡ Golden Rules — If X then Y</div>
-    <div class="grid3" style="margin-bottom:16px;">
+      <!-- GOLDEN RULES -->
+      <div class="cs-section-label">⚡ Golden Rules — If X then Y</div>
+      <div class="grid3" style="margin-bottom:16px;">
 
-      <div class="card c3">
-        <h3>Scaling Rules</h3>
-        <div class="sl">If traffic is high</div>
-        <div class="b">→ <b>Load balancer</b> + horizontal scaling</div>
-        <div class="b">→ <b>Autoscaling</b> for bursty/unpredictable traffic</div>
-        <div class="b">→ <b>Stateless</b> servers — no session on server side</div>
-        <div class="sep"></div>
-        <div class="sl">If read-heavy</div>
-        <div class="b">→ <b>Read replicas</b> to offload primary DB</div>
-        <div class="b">→ <b>Cache</b> aggressively (Redis, CDN, app-level)</div>
-        <div class="b">→ <b>Denormalize</b> DB to avoid expensive joins</div>
-        <div class="sep"></div>
-        <div class="sl">If write-heavy</div>
-        <div class="b">→ <b>Message queue</b> (Kafka/SQS) to absorb spikes</div>
-        <div class="b">→ <b>Batch writes</b> to reduce DB pressure</div>
-        <div class="b">→ <b>Sharding</b> to distribute write load</div>
-        <div class="b">→ <b>Write-behind cache</b> for async persistence</div>
-        <div class="sep"></div>
-        <div class="sl">If data is huge</div>
-        <div class="b">→ <b>Shard</b> by user ID / region / hash</div>
-        <div class="b">→ <b>Archive</b> cold data to cheap storage (S3 Glacier)</div>
-        <div class="b">→ <b>Columnar DB</b> (Cassandra) for ever-growing data</div>
-      </div>
+        <div class="card c3">
+          <h3>Scaling Rules</h3>
+          <div class="sl">If traffic is high</div>
+          <div class="b">→ <b>Load balancer</b> + horizontal scaling</div>
+          <div class="b">→ <b>Autoscaling</b> for bursty/unpredictable traffic</div>
+          <div class="b">→ <b>Stateless</b> servers — no session on server side</div>
+          <div class="sep"></div>
+          <div class="sl">If read-heavy</div>
+          <div class="b">→ <b>Read replicas</b> to offload primary DB</div>
+          <div class="b">→ <b>Cache</b> aggressively (Redis, CDN, app-level)</div>
+          <div class="b">→ <b>Denormalize</b> DB to avoid expensive joins</div>
+          <div class="sep"></div>
+          <div class="sl">If write-heavy</div>
+          <div class="b">→ <b>Message queue</b> (Kafka/SQS) to absorb spikes</div>
+          <div class="b">→ <b>Batch writes</b> to reduce DB pressure</div>
+          <div class="b">→ <b>Sharding</b> to distribute write load</div>
+          <div class="b">→ <b>Write-behind cache</b> for async persistence</div>
+          <div class="sep"></div>
+          <div class="sl">If data is huge</div>
+          <div class="b">→ <b>Shard</b> by user ID / region / hash</div>
+          <div class="b">→ <b>Archive</b> cold data to cheap storage (S3 Glacier)</div>
+          <div class="b">→ <b>Columnar DB</b> (Cassandra) for ever-growing data</div>
+        </div>
 
-      <div class="card c4">
-        <h3>Technology Selection Rules</h3>
-        <div class="sl">If you need search</div>
-        <div class="b">→ <b>Elasticsearch</b> for full-text / fuzzy search</div>
-        <div class="b">→ <b>Trie</b> for autocomplete / prefix search</div>
-        <div class="sep"></div>
-        <div class="sl">If you need fast lookups</div>
-        <div class="b">→ <b>Redis</b> for bounded, in-memory (sessions, cache)</div>
-        <div class="b">→ <b>Cassandra</b> for unbounded AP data</div>
-        <div class="b">→ <b>HBase / MongoDB</b> for unbounded CP data</div>
-        <div class="sep"></div>
-        <div class="sl">If you need real-time</div>
-        <div class="b">→ <b>WebSockets</b> for bidirectional (chat, gaming)</div>
-        <div class="b">→ <b>SSE</b> for server push (notifications, feeds)</div>
-        <div class="b">→ <b>Kafka</b> for event streaming at scale</div>
-        <div class="sep"></div>
-        <div class="sl">If you need large file storage</div>
-        <div class="b">→ <b>S3 + CDN</b> — never store blobs in DB</div>
-        <div class="b">→ <b>Multipart upload</b> for files &gt;100MB</div>
-        <div class="sep"></div>
-        <div class="sl">If you need global low latency</div>
-        <div class="b">→ <b>CDN</b> for static content at edge</div>
-        <div class="b">→ <b>Multi-region deployment</b> for dynamic content</div>
-        <div class="b">→ <b>GeoDNS</b> to route users to nearest region</div>
-      </div>
+        <div class="card c4">
+          <h3>Technology Selection Rules</h3>
+          <div class="sl">If you need search</div>
+          <div class="b">→ <b>Elasticsearch</b> for full-text / fuzzy search</div>
+          <div class="b">→ <b>Trie</b> for autocomplete / prefix search</div>
+          <div class="sep"></div>
+          <div class="sl">If you need fast lookups</div>
+          <div class="b">→ <b>Redis</b> for bounded, in-memory (sessions, cache)</div>
+          <div class="b">→ <b>Cassandra</b> for unbounded AP data</div>
+          <div class="b">→ <b>HBase / MongoDB</b> for unbounded CP data</div>
+          <div class="sep"></div>
+          <div class="sl">If you need real-time</div>
+          <div class="b">→ <b>WebSockets</b> for bidirectional (chat, gaming)</div>
+          <div class="b">→ <b>SSE</b> for server push (notifications, feeds)</div>
+          <div class="b">→ <b>Kafka</b> for event streaming at scale</div>
+          <div class="sep"></div>
+          <div class="sl">If you need large file storage</div>
+          <div class="b">→ <b>S3 + CDN</b> — never store blobs in DB</div>
+          <div class="b">→ <b>Multipart upload</b> for files &gt;100MB</div>
+          <div class="sep"></div>
+          <div class="sl">If you need global low latency</div>
+          <div class="b">→ <b>CDN</b> for static content at edge</div>
+          <div class="b">→ <b>Multi-region deployment</b> for dynamic content</div>
+          <div class="b">→ <b>GeoDNS</b> to route users to nearest region</div>
+        </div>
 
-      <div class="card c5">
-        <h3>Reliability + Design Rules</h3>
-        <div class="sl">If a service can fail</div>
-        <div class="b">→ <b>Circuit breaker</b> to stop cascading failures</div>
-        <div class="b">→ <b>Retry + exponential backoff</b> with jitter</div>
-        <div class="b">→ <b>Fallback / graceful degradation</b> — serve stale data</div>
-        <div class="b">→ <b>Bulkhead</b> — isolate failure domains</div>
-        <div class="sep"></div>
-        <div class="sl">If data must not be lost</div>
-        <div class="b">→ <b>WAL</b> (write-ahead log) before committing</div>
-        <div class="b">→ <b>acks=all</b> in Kafka — wait for all replicas</div>
-        <div class="b">→ <b>Multi-region replication</b> + regular backups</div>
-        <div class="sep"></div>
-        <div class="sl">If operations must be safe to retry</div>
-        <div class="b">→ Make APIs <b>idempotent</b> (same result on retry)</div>
-        <div class="b">→ Use <b>idempotency keys</b> for payments/writes</div>
-        <div class="sep"></div>
-        <div class="sl">If deploying new features</div>
-        <div class="b">→ <b>Feature flags</b> — enable/disable without deploy</div>
-        <div class="b">→ <b>Canary deploy</b> — 1% traffic first, then ramp</div>
-        <div class="b">→ <b>Blue-green deploy</b> — instant rollback</div>
-        <div class="sep"></div>
-        <div class="sl">If handling overload</div>
-        <div class="b">→ <b>Rate limiting</b> — token bucket / sliding window</div>
-        <div class="b">→ <b>Back pressure</b> — slow producer when consumer overwhelmed</div>
-        <div class="b">→ <b>Load shedding</b> — drop low-priority requests</div>
-      </div>
+        <div class="card c5">
+          <h3>Reliability + Design Rules</h3>
+          <div class="sl">If a service can fail</div>
+          <div class="b">→ <b>Circuit breaker</b> to stop cascading failures</div>
+          <div class="b">→ <b>Retry + exponential backoff</b> with jitter</div>
+          <div class="b">→ <b>Fallback / graceful degradation</b> — serve stale data</div>
+          <div class="b">→ <b>Bulkhead</b> — isolate failure domains</div>
+          <div class="sep"></div>
+          <div class="sl">If data must not be lost</div>
+          <div class="b">→ <b>WAL</b> (write-ahead log) before committing</div>
+          <div class="b">→ <b>acks=all</b> in Kafka — wait for all replicas</div>
+          <div class="b">→ <b>Multi-region replication</b> + regular backups</div>
+          <div class="sep"></div>
+          <div class="sl">If operations must be safe to retry</div>
+          <div class="b">→ Make APIs <b>idempotent</b> (same result on retry)</div>
+          <div class="b">→ Use <b>idempotency keys</b> for payments/writes</div>
+          <div class="sep"></div>
+          <div class="sl">If deploying new features</div>
+          <div class="b">→ <b>Feature flags</b> — enable/disable without deploy</div>
+          <div class="b">→ <b>Canary deploy</b> — 1% traffic first, then ramp</div>
+          <div class="b">→ <b>Blue-green deploy</b> — instant rollback</div>
+          <div class="sep"></div>
+          <div class="sl">If handling overload</div>
+          <div class="b">→ <b>Rate limiting</b> — token bucket / sliding window</div>
+          <div class="b">→ <b>Back pressure</b> — slow producer when consumer overwhelmed</div>
+          <div class="b">→ <b>Load shedding</b> — drop low-priority requests</div>
+        </div>
 
-    </div>
-
-    <!-- SELF CHECK QUESTIONS -->
-    <div class="cs-section-label">🧠 Self-Check Questions — Ask During Interview</div>
-    <div class="grid3" style="margin-bottom:16px;">
-
-      <div class="card c1">
-        <h3>Requirements + Scale</h3>
-        <div class="b">Who is the customer and what is their top priority?</div>
-        <div class="b">What is the <b>minimum viable feature set</b>?</div>
-        <div class="b">What is the most critical NFR — performance, availability, or consistency?</div>
-        <div class="b">What are the SLAs — latency, uptime, durability?</div>
-        <div class="b">What is the expected scale today and in <b>1–2 years</b>?</div>
-        <div class="b">Where will the system grow or change most frequently?</div>
-        <div class="b">Are there regulatory constraints — GDPR, HIPAA, data locality?</div>
-        <div class="b">How will you handle <b>traffic spikes</b> — flash sales, virality?</div>
-        <div class="sep"></div>
-        <div class="note" style="color:#60a5fa;"><b>💡</b> Ask these like a PM, not an examiner. Shows you think about real impact.</div>
       </div>
 
-      <div class="card c2">
-        <h3>Design + Trade-offs</h3>
-        <div class="b">Where are the <b>bottlenecks</b> and single points of failure?</div>
-        <div class="b">What <b>CAP trade-off</b> are you making — consistency or availability?</div>
-        <div class="b">What caching strategies reduce load and latency?</div>
-        <div class="b">Are you optimizing for <b>storage cost vs retrieval speed</b>?</div>
-        <div class="b">What parts need horizontal scaling and how is it achieved?</div>
-        <div class="b">If a service fails, how will it <b>degrade gracefully</b>?</div>
-        <div class="b">Can the system <b>auto-scale</b> based on load?</div>
-        <div class="b">Are there clear <b>contracts / interfaces</b> between components?</div>
-        <div class="b">How will <b>dependencies</b> (3rd party APIs, DBs) impact your system?</div>
-        <div class="sep"></div>
-        <div class="note" style="color:#c084fc;"><b>💡</b> Every design has trade-offs. Call them out proactively — don't wait to be asked.</div>
-      </div>
+      <!-- SELF CHECK QUESTIONS -->
+      <div class="cs-section-label">🧠 Self-Check Questions — Ask During Interview</div>
+      <div class="grid3" style="margin-bottom:16px;">
 
-      <div class="card c9">
-        <h3>Operations + Security</h3>
-        <div class="b">What <b>metrics and alerts</b> will you monitor?</div>
-        <div class="b">What logs and traces help with <b>root cause analysis</b>?</div>
-        <div class="b">How will you support <b>zero-downtime deployments</b>?</div>
-        <div class="b">What are the <b>backup and recovery</b> strategies for data loss?</div>
-        <div class="b">Are operations designed with <b>idempotency + retries</b> in mind?</div>
-        <div class="b">How is user data secured — <b>encryption at rest and in transit</b>?</div>
-        <div class="b">Are <b>PII / sensitive data</b> excluded from logs?</div>
-        <div class="b">How will <b>incident response + rollback</b> work during outage?</div>
-        <div class="b">Can you run <b>load tests + chaos testing</b> to validate assumptions?</div>
-        <div class="b">Are you building in <b>observability from the start</b> — not after?</div>
-        <div class="sep"></div>
-        <div class="note" style="color:#93c5fd;"><b>💡</b> Senior candidates raise operational concerns unprompted. This is what separates mid from senior.</div>
-      </div>
+        <div class="card c1">
+          <h3>Requirements + Scale</h3>
+          <div class="b">Who is the customer and what is their top priority?</div>
+          <div class="b">What is the <b>minimum viable feature set</b>?</div>
+          <div class="b">What is the most critical NFR — performance, availability, or consistency?</div>
+          <div class="b">What are the SLAs — latency, uptime, durability?</div>
+          <div class="b">What is the expected scale today and in <b>1–2 years</b>?</div>
+          <div class="b">Where will the system grow or change most frequently?</div>
+          <div class="b">Are there regulatory constraints — GDPR, HIPAA, data locality?</div>
+          <div class="b">How will you handle <b>traffic spikes</b> — flash sales, virality?</div>
+          <div class="sep"></div>
+          <div class="note" style="color:#60a5fa;"><b>💡</b> Ask these like a PM, not an examiner. Shows you think about
+            real impact.</div>
+        </div>
 
-    </div>
+        <div class="card c2">
+          <h3>Design + Trade-offs</h3>
+          <div class="b">Where are the <b>bottlenecks</b> and single points of failure?</div>
+          <div class="b">What <b>CAP trade-off</b> are you making — consistency or availability?</div>
+          <div class="b">What caching strategies reduce load and latency?</div>
+          <div class="b">Are you optimizing for <b>storage cost vs retrieval speed</b>?</div>
+          <div class="b">What parts need horizontal scaling and how is it achieved?</div>
+          <div class="b">If a service fails, how will it <b>degrade gracefully</b>?</div>
+          <div class="b">Can the system <b>auto-scale</b> based on load?</div>
+          <div class="b">Are there clear <b>contracts / interfaces</b> between components?</div>
+          <div class="b">How will <b>dependencies</b> (3rd party APIs, DBs) impact your system?</div>
+          <div class="sep"></div>
+          <div class="note" style="color:#c084fc;"><b>💡</b> Every design has trade-offs. Call them out proactively —
+            don't wait to be asked.</div>
+        </div>
+
+        <div class="card c9">
+          <h3>Operations + Security</h3>
+          <div class="b">What <b>metrics and alerts</b> will you monitor?</div>
+          <div class="b">What logs and traces help with <b>root cause analysis</b>?</div>
+          <div class="b">How will you support <b>zero-downtime deployments</b>?</div>
+          <div class="b">What are the <b>backup and recovery</b> strategies for data loss?</div>
+          <div class="b">Are operations designed with <b>idempotency + retries</b> in mind?</div>
+          <div class="b">How is user data secured — <b>encryption at rest and in transit</b>?</div>
+          <div class="b">Are <b>PII / sensitive data</b> excluded from logs?</div>
+          <div class="b">How will <b>incident response + rollback</b> work during outage?</div>
+          <div class="b">Can you run <b>load tests + chaos testing</b> to validate assumptions?</div>
+          <div class="b">Are you building in <b>observability from the start</b> — not after?</div>
+          <div class="sep"></div>
+          <div class="note" style="color:#93c5fd;"><b>💡</b> Senior candidates raise operational concerns unprompted.
+            This is what separates mid from senior.</div>
+        </div>
+      </div>
     </div>
     <!-- END DELIVERY SECTION -->
 
+    <!-- ========== CORE CONCEPTS ========== -->
 
-    <div class="section" id="caching">
+    <!-- NETWORKING -->
+    <div class="section" id="tcp">
       <div class="section-header">
-        <div class="tag">Core Concept</div>
-        <h1>⚡ Caching</h1>
-        <p>What it is, why it was introduced, how it works, when to use it, trade-offs, failure modes, and real-world
-          examples.</p>
+        <div class="tag">Networking Essentials</div>
+        <h1>🌐 TCP / UDP / HTTP / WebSocket</h1>
+        <p>How data travels across networks — connection types, reliability guarantees, and when to use each protocol.
+        </p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="dns">
+      <div class="section-header">
+        <div class="tag">Networking Essentials</div>
+        <h1>🌐 DNS — Domain Name System</h1>
+        <p>How domain names resolve to IP addresses — hierarchical lookup, caching, and record types.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="proxy">
+      <div class="section-header">
+        <div class="tag">Networking Essentials</div>
+        <h1>🌐 Proxy Servers</h1>
+        <p>Forward vs reverse proxy — caching, security, load distribution, and SSL termination.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="clientserver">
+      <div class="section-header">
+        <div class="tag">Networking Essentials</div>
+        <h1>🌐 Client-Server & P2P Architecture</h1>
+        <p>Centralized vs decentralized — thin/thick clients, peer-to-peer networks, and when each fits.</p>
       </div>
       <div class="coming-soon">
         <div class="cs-icon">🚧</div>
@@ -1638,9 +1971,9 @@
 
     <div class="section" id="loadbalancing">
       <div class="section-header">
-        <div class="tag">Core Concept</div>
+        <div class="tag">Networking Essentials</div>
         <h1>⚖️ Load Balancing</h1>
-        <p>L4 vs L7, algorithms, sticky sessions, health checks, and trade-offs.</p>
+        <p>Distributing traffic across servers — algorithms, L4 vs L7, active-passive vs active-active.</p>
       </div>
       <div class="coming-soon">
         <div class="cs-icon">🚧</div>
@@ -1649,11 +1982,11 @@
       </div>
     </div>
 
-    <div class="section" id="databases">
+    <div class="section" id="cdn">
       <div class="section-header">
-        <div class="tag">Core Concept</div>
-        <h1>🗄️ Database Scaling</h1>
-        <p>Sharding, replication, indexing, ACID vs BASE, SQL vs NoSQL.</p>
+        <div class="tag">Networking Essentials</div>
+        <h1>🌍 CDN — Content Delivery Network</h1>
+        <p>Edge caching, push vs pull CDN, reducing latency for global users.</p>
       </div>
       <div class="coming-soon">
         <div class="cs-icon">🚧</div>
@@ -1662,11 +1995,12 @@
       </div>
     </div>
 
-    <div class="section" id="cap">
+    <!-- API DESIGN -->
+    <div class="section" id="restgraphql">
       <div class="section-header">
-        <div class="tag">Core Concept</div>
-        <h1>🔺 CAP Theorem</h1>
-        <p>Consistency vs Availability vs Partition tolerance — and what it means in practice.</p>
+        <div class="tag">API Design</div>
+        <h1>🔌 REST vs GraphQL vs gRPC</h1>
+        <p>Three API paradigms — when to use each, trade-offs, and real-world examples.</p>
       </div>
       <div class="coming-soon">
         <div class="cs-icon">🚧</div>
@@ -1675,11 +2009,24 @@
       </div>
     </div>
 
-    <div class="section" id="hashing">
+    <div class="section" id="apigateway">
       <div class="section-header">
-        <div class="tag">Core Concept</div>
-        <h1>🔗 Consistent Hashing</h1>
-        <p>How nodes are added/removed without massive data reshuffling.</p>
+        <div class="tag">API Design</div>
+        <h1>🔌 API Gateway</h1>
+        <p>Single entry point — routing, auth, rate limiting, monitoring, and aggregation.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="realtime">
+      <div class="section-header">
+        <div class="tag">API Design</div>
+        <h1>🔌 WebSocket / SSE / Long Polling</h1>
+        <p>Real-time communication patterns — bidirectional vs server push vs polling trade-offs.</p>
       </div>
       <div class="coming-soon">
         <div class="cs-icon">🚧</div>
@@ -1690,9 +2037,9 @@
 
     <div class="section" id="ratelimit">
       <div class="section-header">
-        <div class="tag">Core Concept</div>
-        <h1>🚦 Rate Limiting</h1>
-        <p>Token bucket, leaky bucket, sliding window — protecting your system from abuse.</p>
+        <div class="tag">API Design</div>
+        <h1>🚦 Rate Limiting & Throttling</h1>
+        <p>Token bucket, leaky bucket, sliding window — protecting APIs from abuse and overload.</p>
       </div>
       <div class="coming-soon">
         <div class="cs-icon">🚧</div>
@@ -1701,11 +2048,11 @@
       </div>
     </div>
 
-    <div class="section" id="queues">
+    <div class="section" id="auth">
       <div class="section-header">
-        <div class="tag">Core Concept</div>
-        <h1>📨 Message Queues</h1>
-        <p>Async patterns, Kafka vs RabbitMQ, when to decouple with a queue.</p>
+        <div class="tag">API Design</div>
+        <h1>🔌 Authentication — OAuth2 & JWT</h1>
+        <p>Securing APIs — token-based auth, OAuth2 flows, JWT structure, RBAC vs ABAC.</p>
       </div>
       <div class="coming-soon">
         <div class="cs-icon">🚧</div>
@@ -1714,11 +2061,11 @@
       </div>
     </div>
 
-    <div class="section" id="api">
+    <div class="section" id="apidesign">
       <div class="section-header">
-        <div class="tag">Core Concept</div>
-        <h1>🔌 API Design</h1>
-        <p>REST vs GraphQL vs gRPC — trade-offs, when to use each.</p>
+        <div class="tag">API Design</div>
+        <h1>🔌 Versioning & Idempotency</h1>
+        <p>API versioning strategies, idempotency keys, safe retries, and backward compatibility.</p>
       </div>
       <div class="coming-soon">
         <div class="cs-icon">🚧</div>
@@ -1727,11 +2074,12 @@
       </div>
     </div>
 
-    <div class="section" id="replication">
+    <!-- DATA MODELING -->
+    <div class="section" id="sqlnosql">
       <div class="section-header">
-        <div class="tag">Core Concept</div>
-        <h1>🔁 Replication</h1>
-        <p>Leader-follower, multi-master, sync vs async replication.</p>
+        <div class="tag">Data Modeling</div>
+        <h1>🗄️ SQL vs NoSQL</h1>
+        <p>When to use relational vs non-relational databases — structure, scale, and query patterns.</p>
       </div>
       <div class="coming-soon">
         <div class="cs-icon">🚧</div>
@@ -1740,11 +2088,130 @@
       </div>
     </div>
 
+    <div class="section" id="schema">
+      <div class="section-header">
+        <div class="tag">Data Modeling</div>
+        <h1>🗄️ Schema Design</h1>
+        <p>Designing tables, relationships, and data structures for performance and maintainability.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="normalization">
+      <div class="section-header">
+        <div class="tag">Data Modeling</div>
+        <h1>🗄️ Normalization vs Denormalization</h1>
+        <p>Trading storage efficiency for query performance — when joins hurt and denormalization helps.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="acid">
+      <div class="section-header">
+        <div class="tag">Data Modeling</div>
+        <h1>🗄️ Transactions & ACID</h1>
+        <p>Atomicity, Consistency, Isolation, Durability — how databases guarantee correctness.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="isolation">
+      <div class="section-header">
+        <div class="tag">Data Modeling</div>
+        <h1>🗄️ Isolation Levels</h1>
+        <p>Read uncommitted to serializable — dirty reads, phantom reads, and concurrency anomalies.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="distrtx">
+      <div class="section-header">
+        <div class="tag">Data Modeling</div>
+        <h1>🗄️ Distributed Transactions</h1>
+        <p>2PC, SAGA pattern — coordinating transactions across multiple services and databases.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <!-- CACHING -->
+    <div class="section" id="caching">
+      <div class="section-header">
+        <div class="tag">Caching</div>
+        <h1>⚡ Caching Fundamentals</h1>
+        <p>What caching is, why it was introduced, and how it fits into a system architecture.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="cachestrategies">
+      <div class="section-header">
+        <div class="tag">Caching</div>
+        <h1>⚡ Cache Strategies</h1>
+        <p>Write-through, write-back, cache-aside, refresh-ahead — when and why to use each.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="cacheeviction">
+      <div class="section-header">
+        <div class="tag">Caching</div>
+        <h1>⚡ Eviction & Invalidation</h1>
+        <p>LRU, LFU, TTL — how caches decide what to remove and when data goes stale.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="distrcache">
+      <div class="section-header">
+        <div class="tag">Caching</div>
+        <h1>⚡ Distributed Caching</h1>
+        <p>Caching across multiple nodes — consistency, invalidation, and partitioning strategies.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <!-- SHARDING -->
     <div class="section" id="sharding">
       <div class="section-header">
-        <div class="tag">Core Concept</div>
-        <h1>🧩 Sharding</h1>
-        <p>Horizontal partitioning — when, how, and the problems it introduces.</p>
+        <div class="tag">Sharding</div>
+        <h1>🧩 Sharding Fundamentals</h1>
+        <p>Horizontal partitioning — splitting data across nodes to scale beyond a single machine.</p>
       </div>
       <div class="coming-soon">
         <div class="cs-icon">🚧</div>
@@ -1753,16 +2220,467 @@
       </div>
     </div>
 
+    <div class="section" id="shardstrats">
+      <div class="section-header">
+        <div class="tag">Sharding</div>
+        <h1>🧩 Sharding Strategies</h1>
+        <p>Range, hash, directory-based — choosing the right partition key and strategy.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="hotspots">
+      <div class="section-header">
+        <div class="tag">Sharding</div>
+        <h1>🧩 Hot Spots & Rebalancing</h1>
+        <p>Uneven distribution, hot partition problems, and how to rebalance without downtime.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <!-- CONSISTENT HASHING -->
+    <div class="section" id="hashing">
+      <div class="section-header">
+        <div class="tag">Consistent Hashing</div>
+        <h1>🔗 Consistent Hashing</h1>
+        <p>Distributing data across nodes with minimal reshuffling when nodes are added or removed.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="virtualnodes">
+      <div class="section-header">
+        <div class="tag">Consistent Hashing</div>
+        <h1>🔗 Virtual Nodes</h1>
+        <p>Improving balance and fault tolerance in consistent hashing using virtual node rings.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <!-- CAP -->
+    <div class="section" id="cap">
+      <div class="section-header">
+        <div class="tag">CAP Theorem</div>
+        <h1>🔺 CAP Basics</h1>
+        <p>Consistency, Availability, Partition Tolerance — you can only guarantee two of the three.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="consistency">
+      <div class="section-header">
+        <div class="tag">CAP Theorem</div>
+        <h1>🔺 Consistency Models</h1>
+        <p>Strong, eventual, weak consistency — trade-offs between correctness and availability.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="pacelc">
+      <div class="section-header">
+        <div class="tag">CAP Theorem</div>
+        <h1>🔺 PACELC Extension</h1>
+        <p>Beyond CAP — latency vs consistency trade-offs even when the network is healthy.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <!-- INDEXING -->
+    <div class="section" id="indexing">
+      <div class="section-header">
+        <div class="tag">Database Indexing</div>
+        <h1>📑 Indexing Fundamentals</h1>
+        <p>How indexes speed up queries, the cost they introduce, and when to use them.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="btree">
+      <div class="section-header">
+        <div class="tag">Database Indexing</div>
+        <h1>📑 B-Tree vs LSM Tree</h1>
+        <p>Two dominant index structures — read-optimized B-Tree vs write-optimized LSM Tree.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="indextypes">
+      <div class="section-header">
+        <div class="tag">Database Indexing</div>
+        <h1>📑 Index Types & Trade-offs</h1>
+        <p>Single, composite, full-text, partial indexes — choosing the right index for the query.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <!-- REPLICATION -->
+    <div class="section" id="replication">
+      <div class="section-header">
+        <div class="tag">Replication</div>
+        <h1>🔁 Replication Fundamentals</h1>
+        <p>Master-slave vs multi-master — sync vs async replication, and why it matters.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="repliclag">
+      <div class="section-header">
+        <div class="tag">Replication</div>
+        <h1>🔁 Replication Lag & Failover</h1>
+        <p>Replication lag causes, read-your-writes consistency, and automatic failover strategies.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <!-- MESSAGE QUEUES -->
+    <div class="section" id="queues">
+      <div class="section-header">
+        <div class="tag">Message Queues & Async</div>
+        <h1>📨 Message Queue Fundamentals</h1>
+        <p>Decoupling services with async messaging — producers, consumers, and brokers.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="pubsub">
+      <div class="section-header">
+        <div class="tag">Message Queues & Async</div>
+        <h1>📨 Pub/Sub & Event-Driven</h1>
+        <p>Publish-subscribe pattern, event-driven architecture, and event sourcing.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="msgsemantics">
+      <div class="section-header">
+        <div class="tag">Message Queues & Async</div>
+        <h1>📨 Delivery Semantics</h1>
+        <p>At-least-once, at-most-once, exactly-once — guarantees and their implementation cost.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="backpressure">
+      <div class="section-header">
+        <div class="tag">Message Queues & Async</div>
+        <h1>📨 Back Pressure</h1>
+        <p>Slowing producers when consumers are overwhelmed — preventing queue overflow.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <!-- DISTRIBUTED SYSTEMS -->
+    <div class="section" id="leaderelection">
+      <div class="section-header">
+        <div class="tag">Distributed Systems</div>
+        <h1>🌍 Leader Election</h1>
+        <p>Raft and Paxos — electing a coordinator node and handling leader failures.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="gossip">
+      <div class="section-header">
+        <div class="tag">Distributed Systems</div>
+        <h1>🌍 Gossip Protocol</h1>
+        <p>Spreading information across nodes by random peer communication — eventual consistency.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="bloomfilter">
+      <div class="section-header">
+        <div class="tag">Distributed Systems</div>
+        <h1>🌍 Bloom Filter</h1>
+        <p>Space-efficient probabilistic structure — fast membership checks with false positives.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="merkle">
+      <div class="section-header">
+        <div class="tag">Distributed Systems</div>
+        <h1>🌍 Merkle Tree</h1>
+        <p>Hash trees for data integrity — efficiently detecting differences in large datasets.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="distrlog">
+      <div class="section-header">
+        <div class="tag">Distributed Systems</div>
+        <h1>🌍 Distributed Logs</h1>
+        <p>Ordered event logs across nodes — Kafka log storage, replay, and fault recovery.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <!-- SCALABILITY -->
+    <div class="section" id="scaling">
+      <div class="section-header">
+        <div class="tag">Scalability & Reliability</div>
+        <h1>📈 Horizontal vs Vertical Scaling</h1>
+        <p>Adding servers vs upgrading hardware — trade-offs, cost, and when each makes sense.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="faulttolerance">
+      <div class="section-header">
+        <div class="tag">Scalability & Reliability</div>
+        <h1>📈 Fault Tolerance</h1>
+        <p>Designing systems that continue functioning when components fail — redundancy and failover.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="availability">
+      <div class="section-header">
+        <div class="tag">Scalability & Reliability</div>
+        <h1>📈 Availability & Reliability</h1>
+        <p>Uptime SLAs, redundancy mechanisms, and the difference between availability and reliability.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="circuitbreaker">
+      <div class="section-header">
+        <div class="tag">Scalability & Reliability</div>
+        <h1>📈 Circuit Breaker</h1>
+        <p>Stopping cascading failures — open, half-open, closed states and recovery patterns.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="monitoring">
+      <div class="section-header">
+        <div class="tag">Scalability & Reliability</div>
+        <h1>📈 Health Checks & Monitoring</h1>
+        <p>Liveness vs readiness probes, metrics, alerting, and observability tooling.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="disaster">
+      <div class="section-header">
+        <div class="tag">Scalability & Reliability</div>
+        <h1>📈 Disaster Recovery</h1>
+        <p>RTO vs RPO, backup strategies, multi-region failover, and business continuity.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="autoscaling">
+      <div class="section-header">
+        <div class="tag">Scalability & Reliability</div>
+        <h1>📈 Elastic / Auto-scaling</h1>
+        <p>Automatically adjusting resources based on load — horizontal pod autoscaling, cost optimization.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <!-- STORAGE -->
+    <div class="section" id="storagetypes">
+      <div class="section-header">
+        <div class="tag">Storage</div>
+        <h1>💾 Block vs File vs Object Storage</h1>
+        <p>Three storage paradigms — EBS, NFS, S3 — and when each is the right choice.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="dfs">
+      <div class="section-header">
+        <div class="tag">Storage</div>
+        <h1>💾 Distributed File Systems</h1>
+        <p>GFS and HDFS — storing large datasets across multiple servers with fault tolerance.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <div class="section" id="kvstore">
+      <div class="section-header">
+        <div class="tag">Storage</div>
+        <h1>💾 Key-Value Store</h1>
+        <p>Simple and fast — storing data as key-value pairs for caching and session management.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full concept breakdown using the SD learning framework.</p>
+      </div>
+    </div>
+
+    <!-- ========== KEY TECHNOLOGIES ========== -->
     <div class="section" id="redis">
       <div class="section-header">
         <div class="tag">Key Technology</div>
         <h1>🟥 Redis</h1>
-        <p>In-memory data store — caching, pub/sub, rate limiting, sessions.</p>
+        <p>In-memory data store — caching, pub/sub, rate limiting, sessions, leaderboards.</p>
       </div>
       <div class="coming-soon">
         <div class="cs-icon">🚧</div>
         <h3>Coming Soon</h3>
-        <p>Deep dive into Redis internals, use cases, and trade-offs.</p>
+        <p>Deep dive into Redis internals, data structures, use cases, and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="cassandra">
+      <div class="section-header">
+        <div class="tag">Key Technology</div>
+        <h1>🪨 Cassandra</h1>
+        <p>Wide-column AP database — partition keys, clustering, tunable consistency, and compaction.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Deep dive into Cassandra internals, use cases, and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="dynamodb">
+      <div class="section-header">
+        <div class="tag">Key Technology</div>
+        <h1>⚡ DynamoDB</h1>
+        <p>Managed NoSQL — partition keys, GSI, DAX, streams, and single-table design.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Deep dive into DynamoDB internals, use cases, and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="postgres">
+      <div class="section-header">
+        <div class="tag">Key Technology</div>
+        <h1>🐘 PostgreSQL</h1>
+        <p>Advanced relational DB — JSONB, full-text search, partitioning, MVCC, and extensions.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Deep dive into PostgreSQL internals, use cases, and trade-offs.</p>
       </div>
     </div>
 
@@ -1770,7 +2688,7 @@
       <div class="section-header">
         <div class="tag">Key Technology</div>
         <h1>📊 Kafka</h1>
-        <p>Distributed event streaming — partitions, consumers, fault tolerance.</p>
+        <p>Distributed event streaming — partitions, consumer groups, fault tolerance, and retention.</p>
       </div>
       <div class="coming-soon">
         <div class="cs-icon">🚧</div>
@@ -1779,24 +2697,11 @@
       </div>
     </div>
 
-    <div class="section" id="nginx">
-      <div class="section-header">
-        <div class="tag">Key Technology</div>
-        <h1>🌐 Nginx</h1>
-        <p>Reverse proxy, load balancer, static file server.</p>
-      </div>
-      <div class="coming-soon">
-        <div class="cs-icon">🚧</div>
-        <h3>Coming Soon</h3>
-        <p>Deep dive into Nginx internals, use cases, and trade-offs.</p>
-      </div>
-    </div>
-
     <div class="section" id="elastic">
       <div class="section-header">
         <div class="tag">Key Technology</div>
         <h1>🔍 Elasticsearch</h1>
-        <p>Full-text search, fuzzy matching, inverted indexes.</p>
+        <p>Full-text search engine — inverted index, shards, relevance scoring, and aggregations.</p>
       </div>
       <div class="coming-soon">
         <div class="cs-icon">🚧</div>
@@ -1805,11 +2710,76 @@
       </div>
     </div>
 
-    <div class="section" id="cdn">
+    <div class="section" id="flink">
+      <div class="section-header">
+        <div class="tag">Key Technology</div>
+        <h1>⚡ Flink</h1>
+        <p>Stream processing — stateful computations, exactly-once semantics, and windowing.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Deep dive into Flink internals, use cases, and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="nginx">
+      <div class="section-header">
+        <div class="tag">Key Technology</div>
+        <h1>🌐 Nginx</h1>
+        <p>Reverse proxy, load balancer, static file server — event-driven architecture and config.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Deep dive into Nginx internals, use cases, and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="apigw">
+      <div class="section-header">
+        <div class="tag">Key Technology</div>
+        <h1>🔌 API Gateway</h1>
+        <p>Kong, AWS API Gateway — routing, auth, rate limiting, and observability at the edge.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Deep dive into API Gateway patterns, use cases, and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="zookeeper">
+      <div class="section-header">
+        <div class="tag">Key Technology</div>
+        <h1>🦁 ZooKeeper</h1>
+        <p>Distributed coordination — leader election, service discovery, config management.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Deep dive into ZooKeeper internals, use cases, and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="kubernetes">
+      <div class="section-header">
+        <div class="tag">Key Technology</div>
+        <h1>☸️ Kubernetes</h1>
+        <p>Container orchestration — pods, services, autoscaling, health probes, and deployments.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Deep dive into Kubernetes internals, use cases, and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="s3cdn">
       <div class="section-header">
         <div class="tag">Key Technology</div>
         <h1>🌍 S3 / CDN</h1>
-        <p>Object storage, edge caching, push vs pull CDN.</p>
+        <p>Object storage and edge caching — multipart upload, presigned URLs, and CDN integration.</p>
       </div>
       <div class="coming-soon">
         <div class="cs-icon">🚧</div>
@@ -1818,120 +2788,603 @@
       </div>
     </div>
 
-    <div class="section" id="cqrs">
+    <div class="section" id="rabbitmq">
       <div class="section-header">
-        <div class="tag">Common Pattern</div>
-        <h1>🔄 CQRS</h1>
-        <p>Command Query Responsibility Segregation — separating reads and writes.</p>
+        <div class="tag">Key Technology</div>
+        <h1>🐰 RabbitMQ</h1>
+        <p>Message broker — exchanges, queues, routing keys, and AMQP protocol.</p>
       </div>
       <div class="coming-soon">
         <div class="cs-icon">🚧</div>
         <h3>Coming Soon</h3>
-        <p>Pattern breakdown with real-world examples.</p>
+        <p>Deep dive into RabbitMQ internals, use cases, and trade-offs.</p>
       </div>
     </div>
 
-    <div class="section" id="saga">
+    <!-- ========== PATTERNS ========== -->
+    <div class="section" id="p-realtime">
       <div class="section-header">
-        <div class="tag">Common Pattern</div>
-        <h1>📜 Saga Pattern</h1>
-        <p>Managing distributed transactions without 2PC.</p>
+        <div class="tag">Pattern</div>
+        <h1>🔄 Real-time Updates</h1>
+        <p>WebSockets, SSE, long polling, fan-out — delivering live data to millions of users.</p>
       </div>
       <div class="coming-soon">
         <div class="cs-icon">🚧</div>
         <h3>Coming Soon</h3>
-        <p>Pattern breakdown with real-world examples.</p>
+        <p>Pattern breakdown with real-world examples and trade-offs.</p>
       </div>
     </div>
 
-    <div class="section" id="circuit">
+    <div class="section" id="p-contention">
       <div class="section-header">
-        <div class="tag">Common Pattern</div>
-        <h1>⚡ Circuit Breaker</h1>
-        <p>Preventing cascading failures in distributed systems.</p>
+        <div class="tag">Pattern</div>
+        <h1>🔄 Dealing with Contention</h1>
+        <p>Sharded counters, optimistic locking, queues — handling concurrent writes gracefully.</p>
       </div>
       <div class="coming-soon">
         <div class="cs-icon">🚧</div>
         <h3>Coming Soon</h3>
-        <p>Pattern breakdown with real-world examples.</p>
+        <p>Pattern breakdown with real-world examples and trade-offs.</p>
       </div>
     </div>
 
-    <div class="section" id="eventsourcing">
+    <div class="section" id="p-multistep">
       <div class="section-header">
-        <div class="tag">Common Pattern</div>
-        <h1>📋 Event Sourcing</h1>
-        <p>Storing state as a sequence of events instead of current state.</p>
+        <div class="tag">Pattern</div>
+        <h1>🔄 Multi-step Processes</h1>
+        <p>SAGA pattern, 2PC, compensating transactions — coordinating distributed workflows.</p>
       </div>
       <div class="coming-soon">
         <div class="cs-icon">🚧</div>
         <h3>Coming Soon</h3>
-        <p>Pattern breakdown with real-world examples.</p>
+        <p>Pattern breakdown with real-world examples and trade-offs.</p>
       </div>
     </div>
 
-    <div class="section" id="urlshortener">
+    <div class="section" id="p-scalereads">
       <div class="section-header">
-        <div class="tag">System Design</div>
-        <h1>🔗 URL Shortener</h1>
-        <p>Design a system like bit.ly — hashing, redirects, analytics.</p>
+        <div class="tag">Pattern</div>
+        <h1>🔄 Scaling Reads</h1>
+        <p>Read replicas, caching, CDN, CQRS — handling massive read throughput efficiently.</p>
       </div>
       <div class="coming-soon">
         <div class="cs-icon">🚧</div>
         <h3>Coming Soon</h3>
-        <p>Full system design walkthrough.</p>
+        <p>Pattern breakdown with real-world examples and trade-offs.</p>
       </div>
     </div>
 
-    <div class="section" id="twitter">
+    <div class="section" id="p-scalewrites">
       <div class="section-header">
-        <div class="tag">System Design</div>
-        <h1>🐦 Twitter Feed</h1>
-        <p>Design Twitter's news feed — fan-out, timelines, celebrity problem.</p>
+        <div class="tag">Pattern</div>
+        <h1>🔄 Scaling Writes</h1>
+        <p>Sharding, queues, write-behind cache, batch — handling high write throughput.</p>
       </div>
       <div class="coming-soon">
         <div class="cs-icon">🚧</div>
         <h3>Coming Soon</h3>
-        <p>Full system design walkthrough.</p>
+        <p>Pattern breakdown with real-world examples and trade-offs.</p>
       </div>
     </div>
 
-    <div class="section" id="whatsapp">
+    <div class="section" id="p-blobs">
       <div class="section-header">
-        <div class="tag">System Design</div>
-        <h1>💬 WhatsApp</h1>
-        <p>Design a chat system — WebSockets, message delivery, presence.</p>
+        <div class="tag">Pattern</div>
+        <h1>🔄 Handling Large Blobs</h1>
+        <p>S3 + CDN, chunked upload, multipart — storing and serving large files efficiently.</p>
       </div>
       <div class="coming-soon">
         <div class="cs-icon">🚧</div>
         <h3>Coming Soon</h3>
-        <p>Full system design walkthrough.</p>
+        <p>Pattern breakdown with real-world examples and trade-offs.</p>
       </div>
     </div>
 
-    <div class="section" id="youtube">
+    <div class="section" id="p-longtasks">
       <div class="section-header">
-        <div class="tag">System Design</div>
-        <h1>▶️ YouTube</h1>
-        <p>Design a video platform — upload, encoding, streaming, CDN.</p>
+        <div class="tag">Pattern</div>
+        <h1>🔄 Long Running Tasks</h1>
+        <p>Background workers, job queues, polling vs webhook — handling async heavy processing.</p>
       </div>
       <div class="coming-soon">
         <div class="cs-icon">🚧</div>
         <h3>Coming Soon</h3>
-        <p>Full system design walkthrough.</p>
+        <p>Pattern breakdown with real-world examples and trade-offs.</p>
       </div>
     </div>
 
-    <div class="section" id="uber">
+    <div class="section" id="p-search">
       <div class="section-header">
-        <div class="tag">System Design</div>
-        <h1>🚗 Uber</h1>
-        <p>Design a ride-sharing system — geospatial, matching, surge pricing.</p>
+        <div class="tag">Pattern</div>
+        <h1>🔄 Search at Scale</h1>
+        <p>Inverted index, Elasticsearch, ranking — building fast and relevant search systems.</p>
       </div>
       <div class="coming-soon">
         <div class="cs-icon">🚧</div>
         <h3>Coming Soon</h3>
-        <p>Full system design walkthrough.</p>
+        <p>Pattern breakdown with real-world examples and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="p-ratelimit">
+      <div class="section-header">
+        <div class="tag">Pattern</div>
+        <h1>🔄 Rate Limiting Pattern</h1>
+        <p>Token bucket, leaky bucket, sliding window — implementing rate limiting in distributed systems.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Pattern breakdown with real-world examples and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="p-dedup">
+      <div class="section-header">
+        <div class="tag">Pattern</div>
+        <h1>🔄 Deduplication</h1>
+        <p>Bloom filters, idempotency keys — preventing duplicate processing in distributed systems.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Pattern breakdown with real-world examples and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="p-topk">
+      <div class="section-header">
+        <div class="tag">Pattern</div>
+        <h1>🔄 Top-K / Heavy Hitters</h1>
+        <p>Count-min sketch, min-heap — finding the most frequent items in a data stream.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Pattern breakdown with real-world examples and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="p-geo">
+      <div class="section-header">
+        <div class="tag">Pattern</div>
+        <h1>🔄 Geo-spatial Queries</h1>
+        <p>Quadtree, geohash, PostGIS — finding nearby locations efficiently at scale.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Pattern breakdown with real-world examples and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="p-fanout">
+      <div class="section-header">
+        <div class="tag">Pattern</div>
+        <h1>🔄 Fan-out</h1>
+        <p>Fan-out on write vs fan-out on read — news feed delivery for social networks.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Pattern breakdown with real-world examples and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="p-notification">
+      <div class="section-header">
+        <div class="tag">Pattern</div>
+        <h1>🔄 Notification System</h1>
+        <p>Push vs pull, delivery guarantees, multi-channel — building reliable notification pipelines.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Pattern breakdown with real-world examples and trade-offs.</p>
+      </div>
+    </div>
+
+    <!-- ========== QUESTION BREAKDOWNS ========== -->
+    <div class="section" id="q-bitly">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>🔗 Bitly — URL Shortener</h1>
+        <p>Hash generation, redirect service, analytics — a classic SD interview question.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-dropbox">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>📦 Dropbox — File Storage</h1>
+        <p>Chunked upload, sync, deduplication, conflict resolution — file storage at scale.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-distrcache">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>⚡ Distributed Cache</h1>
+        <p>Design a Redis-like distributed cache — consistent hashing, eviction, replication.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-s3">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>🌍 S3 / Object Storage</h1>
+        <p>Design object storage — chunking, metadata, replication, and consistency.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-whatsapp">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>💬 WhatsApp — Chat System</h1>
+        <p>WebSockets, message delivery, presence, group chat — real-time messaging at scale.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-fb-feed">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>📰 Facebook News Feed</h1>
+        <p>Fan-out on write vs read, timeline generation, ranking — social feed at billion scale.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-fb-live">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>📺 Facebook Live Comments</h1>
+        <p>Real-time comment streaming, fan-out, ordering — handling millions of concurrent viewers.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-fb-search">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>🔍 Facebook Post Search</h1>
+        <p>Indexing posts, relevance ranking, search at social scale — Elasticsearch and beyond.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-instagram">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>📸 Instagram</h1>
+        <p>Photo upload, feed generation, CDN, follower graph — media sharing at scale.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-tinder">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>❤️ Tinder — Matching System</h1>
+        <p>Geo-based matching, swipe storage, recommendation — location-aware social at scale.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-youtube">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>▶️ YouTube — Video Platform</h1>
+        <p>Upload pipeline, transcoding, streaming, CDN — video at global scale.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-youtube-topk">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>📊 YouTube Top-K Videos</h1>
+        <p>Count-min sketch, sliding window, heavy hitters — finding trending videos in real time.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-netflix">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>🎬 Netflix</h1>
+        <p>Streaming, adaptive bitrate, CDN, recommendation — video delivery at global scale.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-uber">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>🚗 Uber — Ride Sharing</h1>
+        <p>Geospatial matching, real-time location, surge pricing — marketplace at scale.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-delivery">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>🛵 Local Delivery Service</h1>
+        <p>Order routing, driver matching, ETA prediction — logistics system design.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-yelp">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>🗺️ Yelp — Proximity Search</h1>
+        <p>Geohash, quadtree, search index — finding nearby businesses efficiently.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-strava">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>🏃 Strava — Activity Tracking</h1>
+        <p>GPS data ingestion, segment matching, leaderboards — fitness tracking at scale.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-robinhood">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>📈 Robinhood — Stock Trading</h1>
+        <p>Order matching, real-time quotes, portfolio — financial system design.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-payment">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>💳 Payment System</h1>
+        <p>Idempotency, double-spend prevention, ledger — reliable financial transactions.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-auction">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>🔨 Online Auction</h1>
+        <p>Real-time bidding, contention, consistency — handling concurrent bids at scale.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-ticketmaster">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>🎟️ Ticketmaster — Seat Booking</h1>
+        <p>Inventory locking, flash sale handling, seat reservation — high-contention booking.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-price">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>💰 Price Tracking Service</h1>
+        <p>Web scraping, change detection, alerting — tracking prices across thousands of products.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-leetcode">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>💻 LeetCode — Online Judge</h1>
+        <p>Code execution sandbox, test runner, leaderboard — secure code evaluation at scale.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-crawler">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>🕷️ Web Crawler</h1>
+        <p>URL frontier, politeness, deduplication, distributed crawling — indexing the web.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-ratelimiter">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>🚦 Rate Limiter</h1>
+        <p>Token bucket, sliding window, distributed rate limiting — protecting APIs at scale.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-jobscheduler">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>⏰ Job Scheduler</h1>
+        <p>Cron jobs, priority queues, fault tolerance — distributed task scheduling.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-metrics">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>📊 Metrics Monitoring</h1>
+        <p>Time series data, aggregation, alerting — observability platform design.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-adclick">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>📢 Ad Click Aggregator</h1>
+        <p>Stream processing, count-min sketch, deduplication — real-time analytics pipeline.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-gdocs">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>📝 Google Docs — Collaborative Editing</h1>
+        <p>OT vs CRDT, real-time sync, conflict resolution — collaborative document editing.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-chatgpt">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>🤖 ChatGPT — LLM System</h1>
+        <p>Inference at scale, streaming tokens, session management — AI system design.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
+      </div>
+    </div>
+
+    <div class="section" id="q-news">
+      <div class="section-header">
+        <div class="tag">Question Breakdown</div>
+        <h1>📰 News Aggregator</h1>
+        <p>RSS scraping, deduplication, ranking, personalization — content aggregation at scale.</p>
+      </div>
+      <div class="coming-soon">
+        <div class="cs-icon">🚧</div>
+        <h3>Coming Soon</h3>
+        <p>Full system design walkthrough with diagrams and trade-offs.</p>
       </div>
     </div>
 
@@ -1939,23 +3392,30 @@
       <div class="section-header">
         <div class="tag">Practice</div>
         <h1>📝 Practice Questions</h1>
-        <p>SD interview questions by difficulty — easy, medium, hard.</p>
+        <p>All SD interview questions organized by difficulty and category.</p>
       </div>
       <div class="coming-soon">
         <div class="cs-icon">🚧</div>
         <h3>Coming Soon</h3>
-        <p>Curated list of practice questions with hints.</p>
+        <p>Curated list of practice questions with hints and difficulty ratings.</p>
       </div>
     </div>
 
   </main>
-
   <script>
+    function toggleGroup(id) {
+      const items = document.getElementById(id);
+      const arrow = document.getElementById('arr-' + id);
+      if (items) items.classList.toggle('open');
+      if (arrow) arrow.classList.toggle('open');
+    }
+
     function show(id) {
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
       document.querySelectorAll('.nav-item, .nav-sub').forEach(n => n.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      event.currentTarget && event.currentTarget.classList.add('active');
+      const target = document.getElementById(id);
+      if (target) target.classList.add('active');
+      if (event && event.currentTarget) event.currentTarget.classList.add('active');
       window.scrollTo(0, 0);
       if (window.innerWidth <= 768) closeSidebar();
     }
