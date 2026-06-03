@@ -1033,14 +1033,13 @@
           <div class="note"><b>QPS</b> = DAU × actions ÷ 86,400</div>
           <div class="note"><b>Peak QPS</b> = QPS × 2 (safe default)</div>
           <div class="note"><b>Bandwidth</b> = QPS × payload size</div>
+           <div class="note"><b>Storage/day</b> = DAU × actions × payload</div>
+          <div class="note"><b>Total storage</b> = storage/day × retention days</div>
+          <div class="note"><b>Media storage</b> = DAU × actions × % with media × media size</div>
           <div class="note"><b>1000 QPS × 1KB</b> ≈ 1 MB/s</div>
           <div class="note"><b>1 Gbps</b> = ~125 MB/s (1 byte = 8 bits)</div>
           <div class="note"><b>Read ops/s</b> = QPS × read %</div>
           <div class="note"><b>Write ops/s</b> = QPS × write %</div>
-          <div class="sep"></div>
-          <div class="note"><b>Storage/day</b> = DAU × actions × payload</div>
-          <div class="note"><b>Total storage</b> = storage/day × retention days</div>
-          <div class="note"><b>Media storage</b> = DAU × actions × % with media × media size</div>
           <div class="sep"></div>
           <div class="sl">Twitter example</div>
           <div class="row"><span class="k">DAU (300M × 50%)</span><span class="v">150M</span></div>
