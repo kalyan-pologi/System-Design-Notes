@@ -1483,8 +1483,141 @@
           <div class="row"><span class="k">Senior</span><span class="v">proactive, drives trade-offs</span></div>
           <div class="row"><span class="k">Staff</span><span class="v">leads, challenges requirements</span></div>
         </div>
-
       </div>
+    <!-- GOLDEN RULES -->
+    <div class="cs-section-label">⚡ Golden Rules — If X then Y</div>
+    <div class="grid3" style="margin-bottom:16px;">
+
+      <div class="card c3">
+        <h3>Scaling Rules</h3>
+        <div class="sl">If traffic is high</div>
+        <div class="b">→ <b>Load balancer</b> + horizontal scaling</div>
+        <div class="b">→ <b>Autoscaling</b> for bursty/unpredictable traffic</div>
+        <div class="b">→ <b>Stateless</b> servers — no session on server side</div>
+        <div class="sep"></div>
+        <div class="sl">If read-heavy</div>
+        <div class="b">→ <b>Read replicas</b> to offload primary DB</div>
+        <div class="b">→ <b>Cache</b> aggressively (Redis, CDN, app-level)</div>
+        <div class="b">→ <b>Denormalize</b> DB to avoid expensive joins</div>
+        <div class="sep"></div>
+        <div class="sl">If write-heavy</div>
+        <div class="b">→ <b>Message queue</b> (Kafka/SQS) to absorb spikes</div>
+        <div class="b">→ <b>Batch writes</b> to reduce DB pressure</div>
+        <div class="b">→ <b>Sharding</b> to distribute write load</div>
+        <div class="b">→ <b>Write-behind cache</b> for async persistence</div>
+        <div class="sep"></div>
+        <div class="sl">If data is huge</div>
+        <div class="b">→ <b>Shard</b> by user ID / region / hash</div>
+        <div class="b">→ <b>Archive</b> cold data to cheap storage (S3 Glacier)</div>
+        <div class="b">→ <b>Columnar DB</b> (Cassandra) for ever-growing data</div>
+      </div>
+
+      <div class="card c4">
+        <h3>Technology Selection Rules</h3>
+        <div class="sl">If you need search</div>
+        <div class="b">→ <b>Elasticsearch</b> for full-text / fuzzy search</div>
+        <div class="b">→ <b>Trie</b> for autocomplete / prefix search</div>
+        <div class="sep"></div>
+        <div class="sl">If you need fast lookups</div>
+        <div class="b">→ <b>Redis</b> for bounded, in-memory (sessions, cache)</div>
+        <div class="b">→ <b>Cassandra</b> for unbounded AP data</div>
+        <div class="b">→ <b>HBase / MongoDB</b> for unbounded CP data</div>
+        <div class="sep"></div>
+        <div class="sl">If you need real-time</div>
+        <div class="b">→ <b>WebSockets</b> for bidirectional (chat, gaming)</div>
+        <div class="b">→ <b>SSE</b> for server push (notifications, feeds)</div>
+        <div class="b">→ <b>Kafka</b> for event streaming at scale</div>
+        <div class="sep"></div>
+        <div class="sl">If you need large file storage</div>
+        <div class="b">→ <b>S3 + CDN</b> — never store blobs in DB</div>
+        <div class="b">→ <b>Multipart upload</b> for files &gt;100MB</div>
+        <div class="sep"></div>
+        <div class="sl">If you need global low latency</div>
+        <div class="b">→ <b>CDN</b> for static content at edge</div>
+        <div class="b">→ <b>Multi-region deployment</b> for dynamic content</div>
+        <div class="b">→ <b>GeoDNS</b> to route users to nearest region</div>
+      </div>
+
+      <div class="card c5">
+        <h3>Reliability + Design Rules</h3>
+        <div class="sl">If a service can fail</div>
+        <div class="b">→ <b>Circuit breaker</b> to stop cascading failures</div>
+        <div class="b">→ <b>Retry + exponential backoff</b> with jitter</div>
+        <div class="b">→ <b>Fallback / graceful degradation</b> — serve stale data</div>
+        <div class="b">→ <b>Bulkhead</b> — isolate failure domains</div>
+        <div class="sep"></div>
+        <div class="sl">If data must not be lost</div>
+        <div class="b">→ <b>WAL</b> (write-ahead log) before committing</div>
+        <div class="b">→ <b>acks=all</b> in Kafka — wait for all replicas</div>
+        <div class="b">→ <b>Multi-region replication</b> + regular backups</div>
+        <div class="sep"></div>
+        <div class="sl">If operations must be safe to retry</div>
+        <div class="b">→ Make APIs <b>idempotent</b> (same result on retry)</div>
+        <div class="b">→ Use <b>idempotency keys</b> for payments/writes</div>
+        <div class="sep"></div>
+        <div class="sl">If deploying new features</div>
+        <div class="b">→ <b>Feature flags</b> — enable/disable without deploy</div>
+        <div class="b">→ <b>Canary deploy</b> — 1% traffic first, then ramp</div>
+        <div class="b">→ <b>Blue-green deploy</b> — instant rollback</div>
+        <div class="sep"></div>
+        <div class="sl">If handling overload</div>
+        <div class="b">→ <b>Rate limiting</b> — token bucket / sliding window</div>
+        <div class="b">→ <b>Back pressure</b> — slow producer when consumer overwhelmed</div>
+        <div class="b">→ <b>Load shedding</b> — drop low-priority requests</div>
+      </div>
+
+    </div>
+
+    <!-- SELF CHECK QUESTIONS -->
+    <div class="cs-section-label">🧠 Self-Check Questions — Ask During Interview</div>
+    <div class="grid3" style="margin-bottom:16px;">
+
+      <div class="card c1">
+        <h3>Requirements + Scale</h3>
+        <div class="b">Who is the customer and what is their top priority?</div>
+        <div class="b">What is the <b>minimum viable feature set</b>?</div>
+        <div class="b">What is the most critical NFR — performance, availability, or consistency?</div>
+        <div class="b">What are the SLAs — latency, uptime, durability?</div>
+        <div class="b">What is the expected scale today and in <b>1–2 years</b>?</div>
+        <div class="b">Where will the system grow or change most frequently?</div>
+        <div class="b">Are there regulatory constraints — GDPR, HIPAA, data locality?</div>
+        <div class="b">How will you handle <b>traffic spikes</b> — flash sales, virality?</div>
+        <div class="sep"></div>
+        <div class="note" style="color:#60a5fa;"><b>💡</b> Ask these like a PM, not an examiner. Shows you think about real impact.</div>
+      </div>
+
+      <div class="card c2">
+        <h3>Design + Trade-offs</h3>
+        <div class="b">Where are the <b>bottlenecks</b> and single points of failure?</div>
+        <div class="b">What <b>CAP trade-off</b> are you making — consistency or availability?</div>
+        <div class="b">What caching strategies reduce load and latency?</div>
+        <div class="b">Are you optimizing for <b>storage cost vs retrieval speed</b>?</div>
+        <div class="b">What parts need horizontal scaling and how is it achieved?</div>
+        <div class="b">If a service fails, how will it <b>degrade gracefully</b>?</div>
+        <div class="b">Can the system <b>auto-scale</b> based on load?</div>
+        <div class="b">Are there clear <b>contracts / interfaces</b> between components?</div>
+        <div class="b">How will <b>dependencies</b> (3rd party APIs, DBs) impact your system?</div>
+        <div class="sep"></div>
+        <div class="note" style="color:#c084fc;"><b>💡</b> Every design has trade-offs. Call them out proactively — don't wait to be asked.</div>
+      </div>
+
+      <div class="card c9">
+        <h3>Operations + Security</h3>
+        <div class="b">What <b>metrics and alerts</b> will you monitor?</div>
+        <div class="b">What logs and traces help with <b>root cause analysis</b>?</div>
+        <div class="b">How will you support <b>zero-downtime deployments</b>?</div>
+        <div class="b">What are the <b>backup and recovery</b> strategies for data loss?</div>
+        <div class="b">Are operations designed with <b>idempotency + retries</b> in mind?</div>
+        <div class="b">How is user data secured — <b>encryption at rest and in transit</b>?</div>
+        <div class="b">Are <b>PII / sensitive data</b> excluded from logs?</div>
+        <div class="b">How will <b>incident response + rollback</b> work during outage?</div>
+        <div class="b">Can you run <b>load tests + chaos testing</b> to validate assumptions?</div>
+        <div class="b">Are you building in <b>observability from the start</b> — not after?</div>
+        <div class="sep"></div>
+        <div class="note" style="color:#93c5fd;"><b>💡</b> Senior candidates raise operational concerns unprompted. This is what separates mid from senior.</div>
+      </div>
+
+    </div>
     </div>
     <!-- END DELIVERY SECTION -->
 
