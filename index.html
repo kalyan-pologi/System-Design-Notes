@@ -1132,63 +1132,6 @@
           <div class="note"><b>Servers:</b> total QPS ÷ QPS per server</div>
         </div>
       </div>
-
-      <div class="cs-section-label">⚙️ Patterns + Rules</div>
-      <div class="grid3">
-        <div class="card c8">
-          <h3>Kafka Deep Dive</h3>
-          <div class="sl">Scalability</div>
-          <div class="b">Hot partitions → remove key / compound key / back pressure</div>
-          <div class="sl">Fault tolerance</div>
-          <div class="b"><b>1 leader + 3 follower</b> replicas</div>
-          <div class="b"><b>acks=all</b> → guaranteed no data loss</div>
-          <div class="b">Consumer commits offset <b>only after</b> work done</div>
-          <div class="b">Rebalance consumer group on failure</div>
-          <div class="sl">Error & retries</div>
-          <div class="b">Producer retries on failure</div>
-          <div class="b">Consumer → <b>retry topic</b> → <b>DLQ</b></div>
-          <div class="sl">Performance</div>
-          <div class="b">Batch processing + compression at producer</div>
-          <div class="sl">Retention policy</div>
-          <div class="b"><b>7 days</b> time-based · <b>1 GB</b> size-based purging</div>
-        </div>
-        <div class="card c10">
-          <h3>Sharded Counters + Write Rules</h3>
-          <div class="sl">Problem</div>
-          <div class="b">Single counter = write bottleneck (lock contention)</div>
-          <div class="sl">Solution</div>
-          <div class="b">Create <b>N shards</b>, pick random shard per write</div>
-          <div class="b">Read = sum all N shards</div>
-          <div class="b">Contention reduced by <b>1/N</b></div>
-          <div class="b">Used in: likes, views, inventory counts</div>
-          <div class="sep"></div>
-          <div class="sl">Write scaling rules</div>
-          <div class="b"><b>Writes 40× more expensive</b> than reads</div>
-          <div class="b">Global shared data = lock contention = slow</div>
-          <div class="b">Architect for <b>parallel writes</b>, not serial</div>
-          <div class="b">Compress before sending over the network</div>
-          <div class="b">Avoid disk seeks — keep hot data in memory</div>
-        </div>
-        <div class="card c12">
-          <h3>Interview Tips</h3>
-          <div class="b"><b>Round numbers</b> — 99,987 → 100,000</div>
-          <div class="b"><b>Label units</b> — write "5 MB" not just "5"</div>
-          <div class="b"><b>State assumptions</b> first, then calculate</div>
-          <div class="b"><b>Process &gt; precision</b> — show thinking aloud</div>
-          <div class="b"><b>Peak = 2× avg</b> as safe default</div>
-          <div class="b"><b>Practice:</b> QPS, storage, cache, # servers</div>
-          <div class="sep"></div>
-          <div class="sl">Latency feel rules</div>
-          <div class="b"><b>&lt;10 ms</b> → real-time (gaming, HFT)</div>
-          <div class="b"><b>&lt;100 ms</b> → snappy (web, chat apps)</div>
-          <div class="b"><b>~1 sec</b> → feels slow or broken</div>
-          <div class="sep"></div>
-          <div class="sl">Quick estimates</div>
-          <div class="note"><b>Servers:</b> 50K RPS ÷ 5K/server = 10 servers</div>
-          <div class="note"><b>Storage:</b> users × items/day × size × days</div>
-        </div>
-      </div>
-
       <div class="cs-section-label">🎯 Senior-Level Numbers <span class="new">NEW</span></div>
       <div class="grid3">
         <div class="card c13">
