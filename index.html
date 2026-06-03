@@ -950,8 +950,74 @@
           <div class="row"><span class="k">Consumer lag alert</span><span class="v">&gt;10K msgs</span></div>
         </div>
       </div>
-    </div>
+      <div class="cs-section-label">🆚 Classic vs Modern Numbers (2025)</div>
+<div class="grid3" style="margin-bottom:16px;">
 
+  <div class="card c5">
+    <h3>Storage & Disk Evolution</h3>
+    <div class="sl">Disk Seek</div>
+    <div class="row"><span class="k">Classic (HDD)</span><span class="v">10 ms</span></div>
+    <div class="row"><span class="k">Modern (NVMe)</span><span class="v">~100 µs</span></div>
+    <div class="sep"></div>
+    <div class="sl">Read 1MB Sequential</div>
+    <div class="row"><span class="k">Classic (HDD)</span><span class="v">30 ms</span></div>
+    <div class="row"><span class="k">Modern (NVMe)</span><span class="v">~0.1 ms</span></div>
+    <div class="sep"></div>
+    <div class="sl">Read 1MB from SSD</div>
+    <div class="row"><span class="k">Classic (SATA SSD)</span><span class="v">1 ms</span></div>
+    <div class="row"><span class="k">Modern (NVMe SSD)</span><span class="v">~0.1 ms</span></div>
+    <div class="sep"></div>
+    <div class="note" style="color:#f87171;"><b>Why:</b> NVMe uses PCIe lanes directly — no SATA bottleneck. HDDs nearly gone from prod systems.</div>
+    <div class="sep"></div>
+    <div class="note" style="color:#4ade80;"><b>Interview tip:</b> "NVMe changed the economics — what needed a cluster in 2010 can run on one beefy server today."</div>
+  </div>
+
+  <div class="card c7">
+    <h3>Component Throughput Evolution</h3>
+    <div class="sl">Redis QPS</div>
+    <div class="row"><span class="k">Classic</span><span class="v">~100K QPS</span></div>
+    <div class="row"><span class="k">Modern (Redis 7+)</span><span class="v">500K–1M QPS</span></div>
+    <div class="sep"></div>
+    <div class="sl">MySQL / Postgres Writes</div>
+    <div class="row"><span class="k">Classic (HDD)</span><span class="v">2K–5K/s</span></div>
+    <div class="row"><span class="k">Modern (NVMe)</span><span class="v">10K–50K/s</span></div>
+    <div class="sep"></div>
+    <div class="sl">Datacenter Round Trip</div>
+    <div class="row"><span class="k">Classic</span><span class="v">500 µs</span></div>
+    <div class="row"><span class="k">Modern same AZ</span><span class="v">&lt;100 µs</span></div>
+    <div class="sep"></div>
+    <div class="sl">1 CPU Core</div>
+    <div class="row"><span class="k">Classic</span><span class="v">~1K req/s</span></div>
+    <div class="row"><span class="k">Modern (async)</span><span class="v">10K–100K req/s</span></div>
+    <div class="sep"></div>
+    <div class="note" style="color:#f87171;"><b>Why:</b> Async frameworks (Node, Go, FastAPI), better CPUs, NVMe — all pushed limits up dramatically.</div>
+  </div>
+
+  <div class="card c13">
+    <h3>Media & Network Evolution</h3>
+    <div class="sl">Video Size per Hour (HD)</div>
+    <div class="row"><span class="k">Classic (H.264)</span><span class="v">~4 GB/hr</span></div>
+    <div class="row"><span class="k">Modern (H.265/AV1)</span><span class="v">1–2 GB/hr</span></div>
+    <div class="sep"></div>
+    <div class="sl">Network Bandwidth</div>
+    <div class="row"><span class="k">Classic datacenter</span><span class="v">1 Gbps</span></div>
+    <div class="row"><span class="k">Modern datacenter</span><span class="v">25–100 Gbps</span></div>
+    <div class="sep"></div>
+    <div class="sl">Image Size</div>
+    <div class="row"><span class="k">Classic JPEG</span><span class="v">~1 MB</span></div>
+    <div class="row"><span class="k">Modern WebP/AVIF</span><span class="v">~100–300 KB</span></div>
+    <div class="sep"></div>
+    <div class="sl">What stays the same</div>
+    <div class="b">L1/L2 cache latency — same order</div>
+    <div class="b">Memory reference — same order</div>
+    <div class="b">CA → Netherlands RTT — same ~150ms</div>
+    <div class="sep"></div>
+    <div class="note" style="color:#4ade80;"><b>Interview tip:</b> "Jeff Dean's numbers are from 2010 — order of magnitude still holds, but modern hardware is significantly faster."</div>
+  </div>
+
+</div>
+    </div>
+    
     <!-- ALL OTHER SECTIONS — PLACEHOLDERS -->
     <!-- PASTE THIS ENTIRE BLOCK to replace the delivery section in index.html -->
     <div class="section" id="delivery">
