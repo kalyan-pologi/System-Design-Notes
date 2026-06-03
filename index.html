@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SD Notes</title>
+<style>
+:root {
+  --bg: #0f1117;
+  --sidebar-bg: #0a0d13;
+  --sidebar-width: 240px;
+  --accent: #60a5fa;
+  --text: #e2e8f0;
+  --muted: #64748b;
+  --border: rgba(255,255,255,0.07);
+  --card-radius: 10px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: var(--sidebar-width);
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  overflow-y: auto;
+  z-index: 100;
+  padding: 0 0 40px;
+}
+
+.sidebar-logo {
+  padding: 20px 16px 16px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  border-bottom: 1px solid var(--border);
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sidebar-logo span { font-size: 18px; }
+
+.nav-section {
+  padding: 14px 12px 4px;
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--muted);
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  font-size: 13px;
+  color: #94a3b8;
+  cursor: pointer;
+  border-radius: 6px;
+  margin: 1px 6px;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+
+.nav-item:hover { background: rgba(255,255,255,0.05); color: #e2e8f0; }
+.nav-item.active { background: rgba(96,165,250,0.12); color: var(--accent); }
+.nav-item .icon { font-size: 14px; opacity: 0.8; }
+
+.nav-sub {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 16px 5px 36px;
+  font-size: 12px;
+  color: #64748b;
+  cursor: pointer;
+  border-radius: 6px;
+  margin: 1px 6px;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.nav-sub:hover { background: rgba(255,255,255,0.04); color: #94a3b8; }
+
+/* ── MAIN CONTENT ── */
+.main {
+  margin-left: var(--sidebar-width);
+  flex: 1;
+  padding: 40px 40px 80px;
+  max-width: 1100px;
+}
+
+/* ── SECTION ── */
+.section { display: none; }
+.section.active { display: block; }
+
+/* ── HOME ── */
+.home-hero {
+  text-align: center;
+  padding: 60px 20px 40px;
+}
+.home-hero h1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+}
+.home-hero p {
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 500px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.home-card {
+  background: #0c1929;
+  border: 1px solid rgba(96,165,250,0.15);
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s;
+  text-align: center;
+}
+.home-card:hover { border-color: rgba(96,165,250,0.4); transform: translateY(-2px); }
+.home-card .hc-icon { font-size: 28px; margin-bottom: 10px; }
+.home-card .hc-title { font-size: 13px; font-weight: 600; color: #e2e8f0; margin-bottom: 4px; }
+.home-card .hc-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+/* ── SECTION HEADER ── */
+.section-header {
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.section-header .tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: rgba(96,165,250,0.1);
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.section-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.section-header p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 600px;
+}
+
+/* ── COMING SOON ── */
+.coming-soon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+}
+.coming-soon .cs-icon { font-size: 48px; margin-bottom: 16px; opacity: 0.4; }
+.coming-soon h3 { font-size: 18px; font-weight: 600; color: #475569; margin-bottom: 8px; }
+.coming-soon p { font-size: 13px; color: #334155; }
+
+/* ── CHEATSHEET CARDS ── */
+.cs-section-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #475569;
+  margin: 20px 0 8px 2px;
+}
+.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 11px; margin-bottom: 4px; }
+
+.card {
+  border-radius: var(--card-radius);
+  padding: 12px 14px;
+  border: 1px solid rgba(255,255,255,0.07);
+}
+.card h3 {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-bottom: 9px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 2.5px 0;
+  font-size: 11.5px;
+  line-height: 1.6;
+}
+.row .k { color: #94a3b8; flex: 1; }
+.row .v { font-weight: 600; color: #f1f5f9; text-align: right; margin-left: 8px; white-space: nowrap; }
+.sep { height: 1px; background: rgba(255,255,255,0.06); margin: 5px 0; }
+.note { font-size: 11px; color: #94a3b8; line-height: 1.65; padding: 2px 0; }
+.note b { color: #f1f5f9; font-weight: 600; }
+.b { font-size: 11.5px; color: #cbd5e1; line-height: 1.75; padding: 1.5px 0; display: block; }
+.b::before { content: "▸ "; color: #64748b; }
+.b b { color: #f1f5f9; font-weight: 600; }
+.sl { font-size: 9.5px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.8px; margin: 6px 0 3px; display: block; }
+.new { display: inline-block; font-size: 8.5px; font-weight: 700; padding: 1px 5px; border-radius: 3px; background: #14532d; color: #4ade80; margin-left: 5px; vertical-align: middle; }
+
+.c1{background:#0c1929;border-color:#1e3a5f;} .c1 h3{color:#60a5fa;}
+.c2{background:#170d2a;border-color:#3b1f6e;} .c2 h3{color:#c084fc;}
+.c3{background:#0a1f12;border-color:#14532d;} .c3 h3{color:#4ade80;}
+.c4{background:#1f1208;border-color:#78350f;} .c4 h3{color:#fbbf24;}
+.c5{background:#1f0a0a;border-color:#7f1d1d;} .c5 h3{color:#f87171;}
+.c6{background:#081f1f;border-color:#134e4a;} .c6 h3{color:#2dd4bf;}
+.c7{background:#1a1a08;border-color:#713f12;} .c7 h3{color:#facc15;}
+.c8{background:#1a0a1a;border-color:#6b1f6b;} .c8 h3{color:#f472b6;}
+.c9{background:#0a1525;border-color:#1e3a5f;} .c9 h3{color:#93c5fd;}
+.c10{background:#0a1f0a;border-color:#14532d;} .c10 h3{color:#86efac;}
+.c11{background:#1f180a;border-color:#92400e;} .c11 h3{color:#fb923c;}
+.c12{background:#0f0f1f;border-color:#312e81;} .c12 h3{color:#a5b4fc;}
+.c13{background:#0f1f1a;border-color:#065f46;} .c13 h3{color:#34d399;}
+.c14{background:#1a0f1a;border-color:#6b1f6b;} .c14 h3{color:#e879f9;}
+.c15{background:#1a1000;border-color:#92400e;} .c15 h3{color:#fdba74;}
+
+/* ── MOBILE ── */
+.hamburger {
+  display: none;
+  position: fixed;
+  top: 12px; left: 12px;
+  z-index: 200;
+  background: #0a0d13;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--text);
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 99;
+}
+
+@media (max-width: 768px) {
+  .hamburger { display: block; }
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.25s;
+  }
+  .sidebar.open { transform: translateX(0); }
+  .overlay.open { display: block; }
+  .main { margin-left: 0; padding: 60px 16px 60px; }
+  .grid3 { grid-template-columns: 1fr; }
+  .home-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Hamburger -->
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-logo"><span>📚</span> SD Notes</div>
+
+  <div class="nav-section">Getting Started</div>
+  <a class="nav-item active" onclick="show('home')"><span class="icon">🏠</span> Home</a>
+  <a class="nav-item" onclick="show('envelope')"><span class="icon">📐</span> Back of Envelope</a>
+  <a class="nav-item" onclick="show('delivery')"><span class="icon">🎯</span> Delivery Framework</a>
+
+  <div class="nav-section">Core Concepts</div>
+  <a class="nav-item" onclick="show('caching')"><span class="icon">⚡</span> Caching</a>
+  <a class="nav-item" onclick="show('loadbalancing')"><span class="icon">⚖️</span> Load Balancing</a>
+  <a class="nav-item" onclick="show('databases')"><span class="icon">🗄️</span> Database Scaling</a>
+  <a class="nav-item" onclick="show('cap')"><span class="icon">🔺</span> CAP Theorem</a>
+  <a class="nav-item" onclick="show('hashing')"><span class="icon">🔗</span> Consistent Hashing</a>
+  <a class="nav-item" onclick="show('ratelimit')"><span class="icon">🚦</span> Rate Limiting</a>
+  <a class="nav-item" onclick="show('queues')"><span class="icon">📨</span> Message Queues</a>
+  <a class="nav-item" onclick="show('api')"><span class="icon">🔌</span> API Design</a>
+  <a class="nav-item" onclick="show('replication')"><span class="icon">🔁</span> Replication</a>
+  <a class="nav-item" onclick="show('sharding')"><span class="icon">🧩</span> Sharding</a>
+
+  <div class="nav-section">Key Technologies</div>
+  <a class="nav-item" onclick="show('redis')"><span class="icon">🟥</span> Redis</a>
+  <a class="nav-item" onclick="show('kafka')"><span class="icon">📊</span> Kafka</a>
+  <a class="nav-item" onclick="show('nginx')"><span class="icon">🌐</span> Nginx</a>
+  <a class="nav-item" onclick="show('elastic')"><span class="icon">🔍</span> Elasticsearch</a>
+  <a class="nav-item" onclick="show('cdn')"><span class="icon">🌍</span> S3 / CDN</a>
+
+  <div class="nav-section">Common Patterns</div>
+  <a class="nav-item" onclick="show('cqrs')"><span class="icon">🔄</span> CQRS</a>
+  <a class="nav-item" onclick="show('saga')"><span class="icon">📜</span> Saga Pattern</a>
+  <a class="nav-item" onclick="show('circuit')"><span class="icon">⚡</span> Circuit Breaker</a>
+  <a class="nav-item" onclick="show('eventsourcing')"><span class="icon">📋</span> Event Sourcing</a>
+
+  <div class="nav-section">System Designs</div>
+  <a class="nav-item" onclick="show('urlshortener')"><span class="icon">🔗</span> URL Shortener</a>
+  <a class="nav-item" onclick="show('twitter')"><span class="icon">🐦</span> Twitter Feed</a>
+  <a class="nav-item" onclick="show('whatsapp')"><span class="icon">💬</span> WhatsApp</a>
+  <a class="nav-item" onclick="show('youtube')"><span class="icon">▶️</span> YouTube</a>
+  <a class="nav-item" onclick="show('uber')"><span class="icon">🚗</span> Uber</a>
+
+  <div class="nav-section">Practice</div>
+  <a class="nav-item" onclick="show('practice')"><span class="icon">📝</span> Practice Questions</a>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- HOME -->
+  <div class="section active" id="home">
+    <div class="home-hero">
+      <h1>📚 SD Notes</h1>
+      <p>Your personal system design interview prep — structured, colored, and built to stick.</p>
+    </div>
+    <div class="home-grid">
+      <div class="home-card" onclick="show('envelope')">
+        <div class="hc-icon">📐</div>
+        <div class="hc-title">Back of Envelope</div>
+        <div class="hc-desc">Numbers, QPS, latency, storage estimation</div>
+      </div>
+      <div class="home-card" onclick="show('delivery')">
+        <div class="hc-icon">🎯</div>
+        <div class="hc-title">Delivery Framework</div>
+        <div class="hc-desc">How to structure your 45-min interview</div>
+      </div>
+      <div class="home-card" onclick="show('caching')">
+        <div class="hc-icon">⚡</div>
+        <div class="hc-title">Core Concepts</div>
+        <div class="hc-desc">Caching, LB, DB, CAP, hashing and more</div>
+      </div>
+      <div class="home-card" onclick="show('redis')">
+        <div class="hc-icon">⚙️</div>
+        <div class="hc-title">Key Technologies</div>
+        <div class="hc-desc">Redis, Kafka, Nginx, Elasticsearch, CDN</div>
+      </div>
+      <div class="home-card" onclick="show('cqrs')">
+        <div class="hc-icon">🔄</div>
+        <div class="hc-title">Common Patterns</div>
+        <div class="hc-desc">CQRS, Saga, Circuit Breaker, Event Sourcing</div>
+      </div>
+      <div class="home-card" onclick="show('practice')">
+        <div class="hc-icon">📝</div>
+        <div class="hc-title">Practice Questions</div>
+        <div class="hc-desc">Easy, medium, hard SD problems</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BACK OF ENVELOPE -->
+  <div class="section" id="envelope">
+    <div class="section-header">
+      <div class="tag">Section 1</div>
+      <h1>📐 Back of Envelope Estimation</h1>
+      <p>Core numbers every SD interviewer expects you to know. Memorize the order of magnitude, not exact values.</p>
+    </div>
+
+    <div class="cs-section-label">🔢 Core Numbers — Memorize First</div>
+    <div class="grid3">
+      <div class="card c4">
+        <h3>Latency Numbers (Jeff Dean)</h3>
+        <div class="row"><span class="k">L1 cache ref</span><span class="v">0.5 ns</span></div>
+        <div class="row"><span class="k">Branch mispredict</span><span class="v">5 ns</span></div>
+        <div class="row"><span class="k">L2 cache ref</span><span class="v">7 ns</span></div>
+        <div class="row"><span class="k">Mutex lock/unlock</span><span class="v">100 ns</span></div>
+        <div class="row"><span class="k">Main memory ref</span><span class="v">100 ns</span></div>
+        <div class="row"><span class="k">Compress 1K (Zippy)</span><span class="v">10 µs</span></div>
+        <div class="row"><span class="k">Send 2K over 1Gbps</span><span class="v">20 µs</span></div>
+        <div class="row"><span class="k">SSD random read</span><span class="v">~16 µs</span></div>
+        <div class="row"><span class="k">Read 1MB from memory</span><span class="v">250 µs</span></div>
+        <div class="row"><span class="k">Datacenter round trip</span><span class="v">500 µs</span></div>
+        <div class="row"><span class="k">Disk seek</span><span class="v">2–10 ms</span></div>
+        <div class="row"><span class="k">Read 1MB from network</span><span class="v">10 ms</span></div>
+        <div class="row"><span class="k">Read 1MB from disk</span><span class="v">30 ms</span></div>
+        <div class="row"><span class="k">CA → Netherlands → CA</span><span class="v">150 ms</span></div>
+      </div>
+      <div class="card c3">
+        <h3>Traffic / QPS Math</h3>
+        <div class="row"><span class="k">1 req/sec</span><span class="v">≈2.6M/month</span></div>
+        <div class="row"><span class="k">1M users → DAU</span><span class="v">~100K</span></div>
+        <div class="row"><span class="k">Peak concurrent users</span><span class="v">5% of DAU</span></div>
+        <div class="row"><span class="k">Peak traffic</span><span class="v">2–10× avg</span></div>
+        <div class="sep"></div>
+        <div class="note"><b>QPS</b> = DAU × actions ÷ 86,400</div>
+        <div class="note"><b>Bandwidth</b> = QPS × payload size</div>
+        <div class="note"><b>1000 QPS × 1KB</b> ≈ 1 MB/s</div>
+        <div class="note"><b>1 Gbps</b> = ~125 MB/s</div>
+        <div class="note"><b>Read ops/s</b> = QPS × read %</div>
+        <div class="note"><b>Write ops/s</b> = QPS × write %</div>
+        <div class="sep"></div>
+        <div class="sl">Twitter example</div>
+        <div class="row"><span class="k">DAU (300M × 50%)</span><span class="v">150M</span></div>
+        <div class="row"><span class="k">Tweets QPS</span><span class="v">~3,500</span></div>
+        <div class="row"><span class="k">Peak QPS (2×)</span><span class="v">~7,000</span></div>
+        <div class="row"><span class="k">Media/day (10% × 1MB)</span><span class="v">30 TB</span></div>
+        <div class="row"><span class="k">5yr storage</span><span class="v">~55 PB</span></div>
+      </div>
+      <div class="card c6">
+        <h3>Availability / SLA Nines</h3>
+        <div class="row"><span class="k">99% (2 nines)</span><span class="v">3.65 days/yr</span></div>
+        <div class="row"><span class="k">99.9% (3 nines)</span><span class="v">8.77 hrs/yr</span></div>
+        <div class="row"><span class="k">99.99% (4 nines)</span><span class="v">52 min/yr</span></div>
+        <div class="row"><span class="k">99.999% (5 nines)</span><span class="v">5.26 min/yr</span></div>
+        <div class="row"><span class="k">99.9999% (6 nines)</span><span class="v">31.5 sec/yr</span></div>
+        <div class="sep"></div>
+        <div class="row"><span class="k">Downtime/day @ 99%</span><span class="v">14.4 min</span></div>
+        <div class="row"><span class="k">Downtime/day @ 99.9%</span><span class="v">1.44 min</span></div>
+        <div class="row"><span class="k">Downtime/day @ 99.99%</span><span class="v">8.6 sec</span></div>
+        <div class="sep"></div>
+        <div class="b">AWS / GCP / Azure SLA ≥ <b>99.9%</b></div>
+        <div class="b">More nines = more cost + complexity</div>
+        <div class="sep"></div>
+        <div class="sl">Modern Network (2025)</div>
+        <div class="row"><span class="k">Within same AZ</span><span class="v">&lt;1 ms</span></div>
+        <div class="row"><span class="k">Cross AZ same region</span><span class="v">1–2 ms</span></div>
+        <div class="row"><span class="k">Cross region</span><span class="v">50–150 ms</span></div>
+      </div>
+    </div>
+
+    <div class="cs-section-label">📦 Data + Component Limits</div>
+    <div class="grid3">
+      <div class="card c1">
+        <h3>Power of 2 + Data Types</h3>
+        <div class="row"><span class="k">2^10 = 1 Thousand</span><span class="v">1 KB</span></div>
+        <div class="row"><span class="k">2^20 = 1 Million</span><span class="v">1 MB</span></div>
+        <div class="row"><span class="k">2^30 = 1 Billion</span><span class="v">1 GB</span></div>
+        <div class="row"><span class="k">2^40 = 1 Trillion</span><span class="v">1 TB</span></div>
+        <div class="row"><span class="k">2^50 = 1 Quadrillion</span><span class="v">1 PB</span></div>
+        <div class="sep"></div>
+        <div class="row"><span class="k">1 ASCII char</span><span class="v">1 B</span></div>
+        <div class="row"><span class="k">1 Unicode char</span><span class="v">2 B</span></div>
+        <div class="row"><span class="k">Int32 / Float</span><span class="v">4 B</span></div>
+        <div class="row"><span class="k">Int64 / Long / Double</span><span class="v">8 B</span></div>
+        <div class="row"><span class="k">Boolean</span><span class="v">4 B</span></div>
+        <div class="sep"></div>
+        <div class="row"><span class="k">1 text / log entry</span><span class="v">~1 KB</span></div>
+        <div class="row"><span class="k">1 thumbnail</span><span class="v">~50 KB</span></div>
+        <div class="row"><span class="k">1 image</span><span class="v">100 KB–2 MB</span></div>
+        <div class="row"><span class="k">1 video HD/hr</span><span class="v">100 MB–5 GB</span></div>
+        <div class="row"><span class="k">1M × 1KB DB rows</span><span class="v">~1 GB</span></div>
+      </div>
+      <div class="card c7">
+        <h3>Component Throughput</h3>
+        <div class="row"><span class="k">1 CPU core</span><span class="v">~1K req/s</span></div>
+        <div class="row"><span class="k">Redis QPS/node</span><span class="v">~100K</span></div>
+        <div class="row"><span class="k">Redis cache hit</span><span class="v">~1 ms</span></div>
+        <div class="row"><span class="k">Redis per instance</span><span class="v">up to 100 GB</span></div>
+        <div class="sep"></div>
+        <div class="row"><span class="k">MySQL/Postgres writes</span><span class="v">2K–5K/s</span></div>
+        <div class="row"><span class="k">DB query SSD</span><span class="v">1–5 ms</span></div>
+        <div class="row"><span class="k">DB query (cache miss)</span><span class="v">20–50 ms</span></div>
+        <div class="sep"></div>
+        <div class="row"><span class="k">Kafka throughput</span><span class="v">~100 MB/s</span></div>
+        <div class="row"><span class="k">Kafka msg size limit</span><span class="v">&lt;1 MB</span></div>
+        <div class="sep"></div>
+        <div class="row"><span class="k">Cache hit rate target</span><span class="v">80–90%</span></div>
+        <div class="row"><span class="k">Top 20% data</span><span class="v">80% cache benefit</span></div>
+        <div class="row"><span class="k">Disk annual failure</span><span class="v">1–2%</span></div>
+        <div class="sep"></div>
+        <div class="sl">Modern server (AWS 2025)</div>
+        <div class="row"><span class="k">M6i.32xlarge RAM</span><span class="v">512 GB</span></div>
+        <div class="row"><span class="k">X1e.32xlarge RAM</span><span class="v">4 TB</span></div>
+        <div class="row"><span class="k">Datacenter NIC</span><span class="v">25–100 Gbps</span></div>
+      </div>
+      <div class="card c9">
+        <h3>DB Selection Guide</h3>
+        <div class="b"><b>ACID / structured</b> → MySQL, PostgreSQL</div>
+        <div class="b"><b>Flexible / unstructured</b> → MongoDB</div>
+        <div class="b"><b>Ever-growing, finite queries</b> → Cassandra</div>
+        <div class="b"><b>Caching / sessions</b> → Redis</div>
+        <div class="b"><b>Blob (image / video)</b> → S3 + CDN</div>
+        <div class="b"><b>Full text / fuzzy search</b> → Elasticsearch</div>
+        <div class="b"><b>Time series</b> → InfluxDB / OpenTSDB</div>
+        <div class="b"><b>Big data / warehouse</b> → Hadoop, BigQuery</div>
+        <div class="b"><b>Vector / AI embeddings</b> → Pinecone, pgvector</div>
+        <div class="b"><b>Graph data</b> → Neo4j</div>
+        <div class="sep"></div>
+        <div class="note"><b>Storage:</b> size × items/user × users × retention</div>
+        <div class="note"><b>Servers:</b> total QPS ÷ QPS per server</div>
+      </div>
+    </div>
+
+    <div class="cs-section-label">⚙️ Patterns + Rules</div>
+    <div class="grid3">
+      <div class="card c8">
+        <h3>Kafka Deep Dive</h3>
+        <div class="sl">Scalability</div>
+        <div class="b">Hot partitions → remove key / compound key / back pressure</div>
+        <div class="sl">Fault tolerance</div>
+        <div class="b"><b>1 leader + 3 follower</b> replicas</div>
+        <div class="b"><b>acks=all</b> → guaranteed no data loss</div>
+        <div class="b">Consumer commits offset <b>only after</b> work done</div>
+        <div class="b">Rebalance consumer group on failure</div>
+        <div class="sl">Error & retries</div>
+        <div class="b">Producer retries on failure</div>
+        <div class="b">Consumer → <b>retry topic</b> → <b>DLQ</b></div>
+        <div class="sl">Performance</div>
+        <div class="b">Batch processing + compression at producer</div>
+        <div class="sl">Retention policy</div>
+        <div class="b"><b>7 days</b> time-based · <b>1 GB</b> size-based purging</div>
+      </div>
+      <div class="card c10">
+        <h3>Sharded Counters + Write Rules</h3>
+        <div class="sl">Problem</div>
+        <div class="b">Single counter = write bottleneck (lock contention)</div>
+        <div class="sl">Solution</div>
+        <div class="b">Create <b>N shards</b>, pick random shard per write</div>
+        <div class="b">Read = sum all N shards</div>
+        <div class="b">Contention reduced by <b>1/N</b></div>
+        <div class="b">Used in: likes, views, inventory counts</div>
+        <div class="sep"></div>
+        <div class="sl">Write scaling rules</div>
+        <div class="b"><b>Writes 40× more expensive</b> than reads</div>
+        <div class="b">Global shared data = lock contention = slow</div>
+        <div class="b">Architect for <b>parallel writes</b>, not serial</div>
+        <div class="b">Compress before sending over the network</div>
+        <div class="b">Avoid disk seeks — keep hot data in memory</div>
+      </div>
+      <div class="card c12">
+        <h3>Interview Tips</h3>
+        <div class="b"><b>Round numbers</b> — 99,987 → 100,000</div>
+        <div class="b"><b>Label units</b> — write "5 MB" not just "5"</div>
+        <div class="b"><b>State assumptions</b> first, then calculate</div>
+        <div class="b"><b>Process &gt; precision</b> — show thinking aloud</div>
+        <div class="b"><b>Peak = 2× avg</b> as safe default</div>
+        <div class="b"><b>Practice:</b> QPS, storage, cache, # servers</div>
+        <div class="sep"></div>
+        <div class="sl">Latency feel rules</div>
+        <div class="b"><b>&lt;10 ms</b> → real-time (gaming, HFT)</div>
+        <div class="b"><b>&lt;100 ms</b> → snappy (web, chat apps)</div>
+        <div class="b"><b>~1 sec</b> → feels slow or broken</div>
+        <div class="sep"></div>
+        <div class="sl">Quick estimates</div>
+        <div class="note"><b>Servers:</b> 50K RPS ÷ 5K/server = 10 servers</div>
+        <div class="note"><b>Storage:</b> users × items/day × size × days</div>
+      </div>
+    </div>
+
+    <div class="cs-section-label">🎯 Senior-Level Numbers <span class="new">NEW</span></div>
+    <div class="grid3">
+      <div class="card c13">
+        <h3>Server + Connection Sizing</h3>
+        <div class="sl">Server capacity</div>
+        <div class="row"><span class="k">Threads per CPU core</span><span class="v">2–4</span></div>
+        <div class="row"><span class="k">Lightweight req/core/s</span><span class="v">~1K</span></div>
+        <div class="row"><span class="k">Heavy req/core/s (DB)</span><span class="v">~100–200</span></div>
+        <div class="row"><span class="k">Servers needed</span><span class="v">QPS ÷ req/server</span></div>
+        <div class="sep"></div>
+        <div class="sl">Connection limits</div>
+        <div class="row"><span class="k">WebSocket conns/server</span><span class="v">10K–100K</span></div>
+        <div class="row"><span class="k">DB conns per app server</span><span class="v">10–100</span></div>
+        <div class="row"><span class="k">Conn pool formula</span><span class="v">(cores×2) + spindles</span></div>
+        <div class="sep"></div>
+        <div class="sl">Memory sizing</div>
+        <div class="row"><span class="k">Cache RAM needed</span><span class="v">hot data × 1.2×</span></div>
+        <div class="row"><span class="k">Redis max per instance</span><span class="v">~100 GB</span></div>
+        <div class="row"><span class="k">JVM heap (app server)</span><span class="v">4–32 GB</span></div>
+      </div>
+      <div class="card c14">
+        <h3>Replication + CDN + Protocol</h3>
+        <div class="sl">Replication lag</div>
+        <div class="row"><span class="k">Same region replica</span><span class="v">~10 ms</span></div>
+        <div class="row"><span class="k">Cross region replica</span><span class="v">50–150 ms</span></div>
+        <div class="row"><span class="k">Sync replication cost</span><span class="v">+replica latency</span></div>
+        <div class="sep"></div>
+        <div class="sl">CDN impact</div>
+        <div class="row"><span class="k">90% CDN hit rate</span><span class="v">10× less origin</span></div>
+        <div class="row"><span class="k">80% CDN hit rate</span><span class="v">5× less origin</span></div>
+        <div class="row"><span class="k">CDN edge latency</span><span class="v">&lt;10 ms to user</span></div>
+        <div class="sep"></div>
+        <div class="sl">Protocol overhead</div>
+        <div class="row"><span class="k">gRPC vs REST payload</span><span class="v">~7× smaller</span></div>
+        <div class="row"><span class="k">Protobuf vs JSON</span><span class="v">3–10× smaller</span></div>
+        <div class="row"><span class="k">WebSocket overhead</span><span class="v">~2B per frame</span></div>
+      </div>
+      <div class="card c15">
+        <h3>DB Scaling + Storage Limits</h3>
+        <div class="sl">When to shard</div>
+        <div class="row"><span class="k">Single Postgres comfort</span><span class="v">few TB</span></div>
+        <div class="row"><span class="k">Shard when writes</span><span class="v">&gt;5K/s sustained</span></div>
+        <div class="sep"></div>
+        <div class="sl">Index cost</div>
+        <div class="row"><span class="k">Index write overhead</span><span class="v">10–30% slower</span></div>
+        <div class="row"><span class="k">Index read speedup</span><span class="v">10–1000× faster</span></div>
+        <div class="row"><span class="k">Max indexes per table</span><span class="v">keep &lt;5–6</span></div>
+        <div class="sep"></div>
+        <div class="sl">Object storage</div>
+        <div class="row"><span class="k">S3 object size limit</span><span class="v">5 TB</span></div>
+        <div class="row"><span class="k">S3 multipart upload</span><span class="v">&gt;100 MB</span></div>
+        <div class="sep"></div>
+        <div class="sl">Queue sizing</div>
+        <div class="row"><span class="k">Kafka partition limit</span><span class="v">~1K/broker</span></div>
+        <div class="row"><span class="k">Consumer lag alert</span><span class="v">&gt;10K msgs</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALL OTHER SECTIONS — PLACEHOLDERS -->
+  <div class="section" id="delivery">
+    <div class="section-header">
+      <div class="tag">Getting Started</div>
+      <h1>🎯 Delivery Framework</h1>
+      <p>How to structure and deliver a system design interview answer in 45 minutes.</p>
+    </div>
+    <div class="coming-soon">
+      <div class="cs-icon">🚧</div>
+      <h3>Coming Soon</h3>
+      <p>This section will cover the step-by-step framework for delivering SD interviews.</p>
+    </div>
+  </div>
+
+  <div class="section" id="caching">
+    <div class="section-header">
+      <div class="tag">Core Concept</div>
+      <h1>⚡ Caching</h1>
+      <p>What it is, why it was introduced, how it works, when to use it, trade-offs, failure modes, and real-world examples.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Full concept breakdown using the SD learning framework.</p></div>
+  </div>
+
+  <div class="section" id="loadbalancing">
+    <div class="section-header">
+      <div class="tag">Core Concept</div>
+      <h1>⚖️ Load Balancing</h1>
+      <p>L4 vs L7, algorithms, sticky sessions, health checks, and trade-offs.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Full concept breakdown using the SD learning framework.</p></div>
+  </div>
+
+  <div class="section" id="databases">
+    <div class="section-header">
+      <div class="tag">Core Concept</div>
+      <h1>🗄️ Database Scaling</h1>
+      <p>Sharding, replication, indexing, ACID vs BASE, SQL vs NoSQL.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Full concept breakdown using the SD learning framework.</p></div>
+  </div>
+
+  <div class="section" id="cap">
+    <div class="section-header">
+      <div class="tag">Core Concept</div>
+      <h1>🔺 CAP Theorem</h1>
+      <p>Consistency vs Availability vs Partition tolerance — and what it means in practice.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Full concept breakdown using the SD learning framework.</p></div>
+  </div>
+
+  <div class="section" id="hashing">
+    <div class="section-header">
+      <div class="tag">Core Concept</div>
+      <h1>🔗 Consistent Hashing</h1>
+      <p>How nodes are added/removed without massive data reshuffling.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Full concept breakdown using the SD learning framework.</p></div>
+  </div>
+
+  <div class="section" id="ratelimit">
+    <div class="section-header">
+      <div class="tag">Core Concept</div>
+      <h1>🚦 Rate Limiting</h1>
+      <p>Token bucket, leaky bucket, sliding window — protecting your system from abuse.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Full concept breakdown using the SD learning framework.</p></div>
+  </div>
+
+  <div class="section" id="queues">
+    <div class="section-header">
+      <div class="tag">Core Concept</div>
+      <h1>📨 Message Queues</h1>
+      <p>Async patterns, Kafka vs RabbitMQ, when to decouple with a queue.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Full concept breakdown using the SD learning framework.</p></div>
+  </div>
+
+  <div class="section" id="api">
+    <div class="section-header">
+      <div class="tag">Core Concept</div>
+      <h1>🔌 API Design</h1>
+      <p>REST vs GraphQL vs gRPC — trade-offs, when to use each.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Full concept breakdown using the SD learning framework.</p></div>
+  </div>
+
+  <div class="section" id="replication">
+    <div class="section-header">
+      <div class="tag">Core Concept</div>
+      <h1>🔁 Replication</h1>
+      <p>Leader-follower, multi-master, sync vs async replication.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Full concept breakdown using the SD learning framework.</p></div>
+  </div>
+
+  <div class="section" id="sharding">
+    <div class="section-header">
+      <div class="tag">Core Concept</div>
+      <h1>🧩 Sharding</h1>
+      <p>Horizontal partitioning — when, how, and the problems it introduces.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Full concept breakdown using the SD learning framework.</p></div>
+  </div>
+
+  <div class="section" id="redis">
+    <div class="section-header">
+      <div class="tag">Key Technology</div>
+      <h1>🟥 Redis</h1>
+      <p>In-memory data store — caching, pub/sub, rate limiting, sessions.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Deep dive into Redis internals, use cases, and trade-offs.</p></div>
+  </div>
+
+  <div class="section" id="kafka">
+    <div class="section-header">
+      <div class="tag">Key Technology</div>
+      <h1>📊 Kafka</h1>
+      <p>Distributed event streaming — partitions, consumers, fault tolerance.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Deep dive into Kafka internals, use cases, and trade-offs.</p></div>
+  </div>
+
+  <div class="section" id="nginx">
+    <div class="section-header">
+      <div class="tag">Key Technology</div>
+      <h1>🌐 Nginx</h1>
+      <p>Reverse proxy, load balancer, static file server.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Deep dive into Nginx internals, use cases, and trade-offs.</p></div>
+  </div>
+
+  <div class="section" id="elastic">
+    <div class="section-header">
+      <div class="tag">Key Technology</div>
+      <h1>🔍 Elasticsearch</h1>
+      <p>Full-text search, fuzzy matching, inverted indexes.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Deep dive into Elasticsearch internals, use cases, and trade-offs.</p></div>
+  </div>
+
+  <div class="section" id="cdn">
+    <div class="section-header">
+      <div class="tag">Key Technology</div>
+      <h1>🌍 S3 / CDN</h1>
+      <p>Object storage, edge caching, push vs pull CDN.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Deep dive into S3 and CDN internals, use cases, and trade-offs.</p></div>
+  </div>
+
+  <div class="section" id="cqrs">
+    <div class="section-header">
+      <div class="tag">Common Pattern</div>
+      <h1>🔄 CQRS</h1>
+      <p>Command Query Responsibility Segregation — separating reads and writes.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Pattern breakdown with real-world examples.</p></div>
+  </div>
+
+  <div class="section" id="saga">
+    <div class="section-header">
+      <div class="tag">Common Pattern</div>
+      <h1>📜 Saga Pattern</h1>
+      <p>Managing distributed transactions without 2PC.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Pattern breakdown with real-world examples.</p></div>
+  </div>
+
+  <div class="section" id="circuit">
+    <div class="section-header">
+      <div class="tag">Common Pattern</div>
+      <h1>⚡ Circuit Breaker</h1>
+      <p>Preventing cascading failures in distributed systems.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Pattern breakdown with real-world examples.</p></div>
+  </div>
+
+  <div class="section" id="eventsourcing">
+    <div class="section-header">
+      <div class="tag">Common Pattern</div>
+      <h1>📋 Event Sourcing</h1>
+      <p>Storing state as a sequence of events instead of current state.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Pattern breakdown with real-world examples.</p></div>
+  </div>
+
+  <div class="section" id="urlshortener">
+    <div class="section-header">
+      <div class="tag">System Design</div>
+      <h1>🔗 URL Shortener</h1>
+      <p>Design a system like bit.ly — hashing, redirects, analytics.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Full system design walkthrough.</p></div>
+  </div>
+
+  <div class="section" id="twitter">
+    <div class="section-header">
+      <div class="tag">System Design</div>
+      <h1>🐦 Twitter Feed</h1>
+      <p>Design Twitter's news feed — fan-out, timelines, celebrity problem.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Full system design walkthrough.</p></div>
+  </div>
+
+  <div class="section" id="whatsapp">
+    <div class="section-header">
+      <div class="tag">System Design</div>
+      <h1>💬 WhatsApp</h1>
+      <p>Design a chat system — WebSockets, message delivery, presence.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Full system design walkthrough.</p></div>
+  </div>
+
+  <div class="section" id="youtube">
+    <div class="section-header">
+      <div class="tag">System Design</div>
+      <h1>▶️ YouTube</h1>
+      <p>Design a video platform — upload, encoding, streaming, CDN.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Full system design walkthrough.</p></div>
+  </div>
+
+  <div class="section" id="uber">
+    <div class="section-header">
+      <div class="tag">System Design</div>
+      <h1>🚗 Uber</h1>
+      <p>Design a ride-sharing system — geospatial, matching, surge pricing.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Full system design walkthrough.</p></div>
+  </div>
+
+  <div class="section" id="practice">
+    <div class="section-header">
+      <div class="tag">Practice</div>
+      <h1>📝 Practice Questions</h1>
+      <p>SD interview questions by difficulty — easy, medium, hard.</p>
+    </div>
+    <div class="coming-soon"><div class="cs-icon">🚧</div><h3>Coming Soon</h3><p>Curated list of practice questions with hints.</p></div>
+  </div>
+
+</main>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item, .nav-sub').forEach(n => n.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.currentTarget && event.currentTarget.classList.add('active');
+  window.scrollTo(0, 0);
+  if (window.innerWidth <= 768) closeSidebar();
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('open');
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+}
+</script>
+</body>
+</html>
